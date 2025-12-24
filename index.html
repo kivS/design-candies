@@ -30,6 +30,12 @@
         This is my running collection of patterns, components, and UI moments I'm exploring. Each
         page is a focused set of ideas around a single design element.
       </p>
+      <div
+        class="inline-flex items-center gap-3 rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
+        <label for="page-color">Page tint</label>
+        <input id="page-color" type="color" value="#0f172a"
+          class="h-9 w-9 cursor-pointer rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm dark:border-white/10 dark:bg-slate-900" />
+      </div>
     </header>
 
     <section class="mt-14 grid gap-6 sm:grid-cols-2">
@@ -50,6 +56,14 @@
       </a>
     </section>
   </main>
+  <script>
+    const pageColor = document.getElementById("page-color");
+    if (pageColor) {
+      pageColor.addEventListener("input", (event) => {
+        document.body.style.backgroundColor = event.target.value;
+      });
+    }
+  </script>
 </body>
 
 </html>
