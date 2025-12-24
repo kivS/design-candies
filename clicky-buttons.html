@@ -42,68 +42,53 @@
 
       <section class="mt-10 grid gap-8">
         <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-          <div class="flex items-center justify-between">
-            <h2 class="font-display text-2xl font-semibold">Core actions</h2>
-            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Primary + Secondary</span>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Depth press</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              3D click states
+            </span>
           </div>
-          <div class="mt-6 flex flex-wrap gap-4">
-            <button
-              class="rounded-xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-glow transition hover:-translate-y-0.5 hover:bg-emerald-300"
-            >
-              Launch deployment
-            </button>
-            <button
-              class="rounded-xl border border-emerald-400/50 bg-emerald-200/20 px-6 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-200/30 dark:border-emerald-200/40 dark:bg-emerald-200/10 dark:text-emerald-100 dark:hover:bg-emerald-200/20"
-            >
-              Compare plans
-            </button>
-            <button
-              class="rounded-xl border border-slate-200/80 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:border-white/20 dark:hover:bg-white/10"
-            >
-              Save draft
-            </button>
-          </div>
-        </div>
-
-        <div class="grid gap-6 lg:grid-cols-2">
-          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Outline + Ghost</h2>
-            <div class="mt-6 flex flex-wrap gap-4">
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Press these to feel the stacked layers. Each style uses a different shadow recipe for
+            the same tactile cue.
+          </p>
+          <div class="mt-6">
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Solid slabs</p>
+            <div class="mt-3 flex flex-wrap gap-4">
               <button
-                class="rounded-full border border-emerald-400/60 px-6 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-400/10 dark:border-emerald-300/70 dark:text-emerald-200 dark:hover:bg-emerald-300/10"
+                class="depth-press depth-slate rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:bg-slate-100 dark:text-slate-900"
               >
-                Invite teammate
+                Ship release
               </button>
               <button
-                class="rounded-full border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900 dark:border-slate-600/80 dark:text-slate-200 dark:hover:border-slate-400 dark:hover:text-slate-100"
+                class="depth-press depth-teal rounded-xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
               >
-                View logs
+                Resolve incident
               </button>
               <button
-                class="rounded-full px-6 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-slate-100"
+                class="depth-press depth-indigo rounded-xl bg-indigo-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
               >
-                Skip for now
+                Open in Sentry
               </button>
             </div>
           </div>
-
-          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Soft pills</h2>
-            <div class="mt-6 flex flex-wrap gap-4">
+          <div class="mt-6">
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Gloss + outline</p>
+            <div class="mt-3 flex flex-wrap gap-4">
               <button
-                class="rounded-full bg-sky-400/20 px-5 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-400/30 dark:text-sky-100"
+                class="depth-press depth-rose rounded-xl bg-rose-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 dark:bg-rose-400"
               >
-                Upgrade to Pro
+                Mark critical
               </button>
               <button
-                class="rounded-full bg-amber-400/20 px-5 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-400/30 dark:text-amber-100"
+                class="depth-press depth-ghost rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
               >
-                Export report
+                View diff
               </button>
               <button
-                class="rounded-full bg-rose-400/20 px-5 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-400/30 dark:text-rose-100"
+                class="depth-press depth-gloss rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-3 text-sm font-semibold text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:from-slate-200 dark:via-slate-100 dark:to-slate-50 dark:text-slate-900"
               >
-                Delete workspace
+                Start session
               </button>
             </div>
           </div>
@@ -111,28 +96,78 @@
 
         <div class="grid gap-6 lg:grid-cols-2">
           <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Icon + label</h2>
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-2xl font-semibold">Pill depth</h2>
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Rounded edges</span>
+            </div>
             <div class="mt-6 flex flex-wrap gap-4">
               <button
-                class="flex items-center gap-2 rounded-xl border border-slate-200/70 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 dark:border-transparent dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/20"
+                class="depth-press depth-teal rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
               >
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-700 dark:text-emerald-200">
+                Start ingest
+              </button>
+              <button
+                class="depth-press depth-indigo rounded-full bg-indigo-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
+              >
+                Track conversion
+              </button>
+              <button
+                class="depth-press depth-rose rounded-full bg-rose-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 dark:bg-rose-400"
+              >
+                End experiment
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-2xl font-semibold">Outline depth</h2>
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Bordered stacks</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="depth-press depth-ghost rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+              >
+                Compare runs
+              </button>
+              <button
+                class="depth-press depth-slate rounded-xl border border-slate-300 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-100"
+              >
+                Open timeline
+              </button>
+              <button
+                class="depth-press depth-gloss rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+              >
+                Export data
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Icon + label depth</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="depth-press depth-slate flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:bg-slate-100 dark:text-slate-900"
+              >
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-slate-200 dark:bg-slate-800 dark:text-slate-200">
                   +
                 </span>
-                New project
+                New alert
               </button>
               <button
-                class="flex items-center gap-2 rounded-xl border border-slate-200/80 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-emerald-400/50 hover:bg-emerald-300/10 dark:border-white/10 dark:text-slate-100 dark:hover:border-emerald-300/50"
+                class="depth-press depth-indigo flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
               >
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-slate-100 dark:bg-slate-800 dark:text-slate-200">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-indigo-100">
                   !
                 </span>
-                Escalate issue
+                Escalate
               </button>
               <button
-                class="flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+                class="depth-press depth-ghost flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
               >
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200/80 text-slate-600 dark:border-white/10 dark:text-slate-200">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200">
                   i
                 </span>
                 View guide
@@ -141,28 +176,28 @@
           </div>
 
           <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Icon-only controls</h2>
+            <h2 class="font-display text-2xl font-semibold">Icon-only taps</h2>
             <div class="mt-6 flex flex-wrap gap-4">
               <button
-                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-emerald-400/60 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-emerald-300/60 dark:hover:text-emerald-100"
+                class="depth-press depth-teal flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-400 text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
                 aria-label="Favorite"
               >
                 *
               </button>
               <button
-                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-sky-400/60 hover:text-sky-600 dark:border-white/10 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-300/60 dark:hover:text-sky-100"
+                class="depth-press depth-indigo flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
                 aria-label="Pin"
               >
                 ^
               </button>
               <button
-                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-rose-400/60 hover:text-rose-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-rose-300/60 dark:hover:text-rose-100"
+                class="depth-press depth-rose flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 dark:bg-rose-400"
                 aria-label="Delete"
               >
                 x
               </button>
               <button
-                class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/20 text-emerald-700 transition hover:bg-emerald-400/30 dark:text-emerald-200"
+                class="depth-press depth-ghost flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
                 aria-label="Open menu"
               >
                 ...
@@ -173,107 +208,52 @@
 
         <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <h2 class="font-display text-2xl font-semibold">Split + grouped</h2>
-            <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Compound actions</div>
+            <h2 class="font-display text-2xl font-semibold">Compound depth</h2>
+            <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Stacked controls</div>
           </div>
-          <div class="mt-6 flex flex-wrap gap-6">
-            <div class="inline-flex overflow-hidden rounded-2xl border border-slate-200/80 dark:border-white/10">
-              <button class="bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900">Deploy</button>
-              <button
-                class="border-l border-emerald-300/30 bg-emerald-300/20 px-4 py-3 text-sm font-semibold text-emerald-800 dark:border-white/10 dark:text-emerald-100"
-              >
-                v
-              </button>
-            </div>
-            <div class="inline-flex overflow-hidden rounded-2xl border border-slate-200/80 bg-white dark:border-white/10 dark:bg-slate-900">
-              <button class="px-6 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100">Preview</button>
-              <button
-                class="border-l border-slate-200/80 px-4 py-3 text-sm font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300"
-              >
-                Share
-              </button>
-              <button
-                class="border-l border-slate-200/80 px-4 py-3 text-sm font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300"
-              >
-                Clone
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid gap-6 lg:grid-cols-2">
-          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Toggle + segmented</h2>
-            <div class="mt-6 flex flex-wrap gap-4">
-              <div class="inline-flex rounded-full border border-emerald-400/50 bg-emerald-300/10 p-1 dark:border-emerald-300/50">
-                <button class="rounded-full bg-emerald-300 px-4 py-2 text-sm font-semibold text-slate-900">
-                  Live
-                </button>
-                <button class="rounded-full px-4 py-2 text-sm font-semibold text-emerald-700 dark:text-emerald-100">
-                  Paused
-                </button>
-              </div>
-              <div class="inline-flex rounded-2xl border border-slate-200/80 bg-white p-1 dark:border-white/10 dark:bg-slate-900">
-                <button class="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-800 dark:bg-white/10 dark:text-slate-100">
-                  24h
-                </button>
-                <button class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                  7d
-                </button>
-                <button class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                  30d
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <h2 class="font-display text-2xl font-semibold">Status states</h2>
-            <div class="mt-6 flex flex-wrap items-center gap-4">
-              <button
-                class="rounded-xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 opacity-70"
-                disabled
-              >
-                Launching...
-              </button>
-              <button
-                class="rounded-xl border border-slate-200/80 bg-white px-6 py-3 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
-              >
-                Disabled
-              </button>
-              <button
-                class="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 dark:text-slate-100"
-              >
-                Ready
-              </button>
-              <button
-                class="rounded-xl border border-rose-400/60 bg-rose-400/10 px-6 py-3 text-sm font-semibold text-rose-700 dark:text-rose-100"
-              >
-                Critical action
-              </button>
-            </div>
+          <div class="mt-6 flex flex-wrap gap-4">
+            <button
+              class="depth-press depth-slate rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:bg-slate-100 dark:text-slate-900"
+            >
+              Run check
+            </button>
+            <button
+              class="depth-press depth-ghost rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+            >
+              View logs
+            </button>
+            <button
+              class="depth-press depth-indigo rounded-2xl bg-indigo-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
+            >
+              Schedule rerun
+            </button>
+            <button
+              class="depth-press depth-rose rounded-2xl bg-rose-500 px-6 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 dark:bg-rose-400"
+            >
+              Stop pipeline
+            </button>
           </div>
         </div>
 
         <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <h2 class="font-display text-2xl font-semibold">Wide CTAs</h2>
-            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">High-contrast prompts</p>
+            <h2 class="font-display text-2xl font-semibold">Wide depth CTAs</h2>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Full-width impact</p>
           </div>
           <div class="mt-6 grid gap-4 sm:grid-cols-2">
             <button
-              class="flex items-center justify-between rounded-2xl bg-gradient-to-r from-emerald-400 via-emerald-300 to-sky-300 px-6 py-4 text-sm font-semibold text-slate-900 shadow-glow"
+              class="depth-press depth-gloss flex items-center justify-between rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-4 text-sm font-semibold text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:from-slate-200 dark:via-slate-100 dark:to-slate-50 dark:text-slate-900"
             >
               <span>Start incident response</span>
-              <span class="rounded-full bg-slate-900/20 px-3 py-1 text-xs font-semibold text-slate-900">
+              <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100 dark:bg-slate-900/20 dark:text-slate-900">
                 3 steps
               </span>
             </button>
             <button
-              class="flex items-center justify-between rounded-2xl border border-slate-200/80 bg-white px-6 py-4 text-sm font-semibold text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-slate-100"
+              class="depth-press depth-teal flex items-center justify-between rounded-2xl bg-emerald-400 px-6 py-4 text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
             >
               <span>Request SSO onboarding</span>
-              <span class="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-600 dark:border-white/20 dark:text-slate-200">
+              <span class="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-900">
                 48h
               </span>
             </button>

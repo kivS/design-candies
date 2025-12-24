@@ -18,4 +18,84 @@
   .shadow-glow {
     box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.4), 0 12px 30px -18px rgba(94, 234, 212, 0.8);
   }
+
+  .depth-press {
+    transform: translateY(0);
+    transition:
+      transform 80ms ease,
+      box-shadow 80ms ease,
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .depth-press:active {
+    transform: translateY(3px);
+  }
+
+  .depth-slate {
+    --depth-ledge: #0f172a;
+    box-shadow: 0 6px 0 var(--depth-ledge), 0 14px 24px rgba(15, 23, 42, 0.25);
+  }
+
+  .depth-slate:active {
+    box-shadow: 0 3px 0 var(--depth-ledge), 0 8px 16px rgba(15, 23, 42, 0.2);
+  }
+
+  .depth-teal {
+    --depth-ledge: #0f766e;
+    box-shadow: 0 6px 0 var(--depth-ledge), 0 14px 24px rgba(6, 95, 70, 0.28);
+  }
+
+  .depth-teal:active {
+    box-shadow: 0 3px 0 var(--depth-ledge), 0 8px 16px rgba(6, 95, 70, 0.22);
+  }
+
+  .depth-indigo {
+    --depth-ledge: #312e81;
+    box-shadow: 0 6px 0 var(--depth-ledge), 0 16px 26px rgba(49, 46, 129, 0.35);
+  }
+
+  .depth-indigo:active {
+    box-shadow: 0 3px 0 var(--depth-ledge), 0 9px 18px rgba(49, 46, 129, 0.28);
+  }
+
+  .depth-rose {
+    --depth-ledge: #9f1239;
+    box-shadow: 0 6px 0 var(--depth-ledge), 0 16px 26px rgba(159, 18, 57, 0.3);
+  }
+
+  .depth-rose:active {
+    box-shadow: 0 3px 0 var(--depth-ledge), 0 9px 18px rgba(159, 18, 57, 0.24);
+  }
+
+  .depth-ghost {
+    --depth-ledge: #1f2937;
+    box-shadow:
+      0 5px 0 var(--depth-ledge),
+      0 12px 18px rgba(15, 23, 42, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  .depth-ghost:active {
+    box-shadow:
+      0 2px 0 var(--depth-ledge),
+      0 7px 12px rgba(15, 23, 42, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .depth-gloss {
+    --depth-ledge: #0b1220;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 6px 0 var(--depth-ledge),
+      0 16px 30px rgba(15, 23, 42, 0.35);
+  }
+
+  .depth-gloss:active {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 3px 0 var(--depth-ledge),
+      0 9px 18px rgba(15, 23, 42, 0.28);
+  }
 }
