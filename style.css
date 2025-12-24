@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Work Sans", "ui-sans-serif", "system-ui";
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Space Grotesk", "ui-sans-serif", "system-ui";
+  }
+
+  .font-body {
+    font-family: "Work Sans", "ui-sans-serif", "system-ui";
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.4), 0 12px 30px -18px rgba(94, 234, 212, 0.8);
+  }
+}

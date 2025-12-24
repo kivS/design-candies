@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clicky Buttons</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div
+      class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.14),_transparent_50%),radial-gradient(circle_at_30%_70%,_rgba(56,189,248,0.12),_transparent_45%)] dark:bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_45%),radial-gradient(circle_at_30%_70%,_rgba(56,189,248,0.18),_transparent_40%)]"
+    ></div>
+
+    <main class="relative mx-auto max-w-6xl px-6 py-12">
+      <header class="flex flex-col gap-6 border-b border-slate-200/80 pb-8 dark:border-white/10">
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/"
+            class="inline-flex items-center rounded-full border border-slate-300 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700 transition hover:border-emerald-500/70 hover:text-emerald-600 dark:border-white/20 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+          >
+            Home
+          </a>
+          <span class="text-xs uppercase tracking-[0.4em] text-emerald-600 dark:text-emerald-300">Clicky Buttons</span>
+        </div>
+        <div class="max-w-3xl space-y-4">
+          <h1 class="font-display text-4xl font-semibold sm:text-5xl">
+            Buttons with intent, contrast, and a hint of swagger.
+          </h1>
+          <p class="font-body text-lg text-slate-600 dark:text-slate-300">
+            Mix these treatments like a UI DJ. Each cluster explores a different button mood,
+            from calm secondary actions to bold launch CTAs.
+          </p>
+        </div>
+      </header>
+
+      <section class="mt-10 grid gap-8">
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex items-center justify-between">
+            <h2 class="font-display text-2xl font-semibold">Core actions</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Primary + Secondary</span>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-4">
+            <button
+              class="rounded-xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-glow transition hover:-translate-y-0.5 hover:bg-emerald-300"
+            >
+              Launch deployment
+            </button>
+            <button
+              class="rounded-xl border border-emerald-400/50 bg-emerald-200/20 px-6 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-200/30 dark:border-emerald-200/40 dark:bg-emerald-200/10 dark:text-emerald-100 dark:hover:bg-emerald-200/20"
+            >
+              Compare plans
+            </button>
+            <button
+              class="rounded-xl border border-slate-200/80 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:border-white/20 dark:hover:bg-white/10"
+            >
+              Save draft
+            </button>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Outline + Ghost</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="rounded-full border border-emerald-400/60 px-6 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-400/10 dark:border-emerald-300/70 dark:text-emerald-200 dark:hover:bg-emerald-300/10"
+              >
+                Invite teammate
+              </button>
+              <button
+                class="rounded-full border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900 dark:border-slate-600/80 dark:text-slate-200 dark:hover:border-slate-400 dark:hover:text-slate-100"
+              >
+                View logs
+              </button>
+              <button
+                class="rounded-full px-6 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-slate-100"
+              >
+                Skip for now
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Soft pills</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="rounded-full bg-sky-400/20 px-5 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-400/30 dark:text-sky-100"
+              >
+                Upgrade to Pro
+              </button>
+              <button
+                class="rounded-full bg-amber-400/20 px-5 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-400/30 dark:text-amber-100"
+              >
+                Export report
+              </button>
+              <button
+                class="rounded-full bg-rose-400/20 px-5 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-400/30 dark:text-rose-100"
+              >
+                Delete workspace
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Icon + label</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="flex items-center gap-2 rounded-xl border border-slate-200/70 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 dark:border-transparent dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/20"
+              >
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-700 dark:text-emerald-200">
+                  +
+                </span>
+                New project
+              </button>
+              <button
+                class="flex items-center gap-2 rounded-xl border border-slate-200/80 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-emerald-400/50 hover:bg-emerald-300/10 dark:border-white/10 dark:text-slate-100 dark:hover:border-emerald-300/50"
+              >
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-slate-100 dark:bg-slate-800 dark:text-slate-200">
+                  !
+                </span>
+                Escalate issue
+              </button>
+              <button
+                class="flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+              >
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200/80 text-slate-600 dark:border-white/10 dark:text-slate-200">
+                  i
+                </span>
+                View guide
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Icon-only controls</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <button
+                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-emerald-400/60 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-emerald-300/60 dark:hover:text-emerald-100"
+                aria-label="Favorite"
+              >
+                *
+              </button>
+              <button
+                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-sky-400/60 hover:text-sky-600 dark:border-white/10 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-300/60 dark:hover:text-sky-100"
+                aria-label="Pin"
+              >
+                ^
+              </button>
+              <button
+                class="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition hover:border-rose-400/60 hover:text-rose-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-rose-300/60 dark:hover:text-rose-100"
+                aria-label="Delete"
+              >
+                x
+              </button>
+              <button
+                class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/20 text-emerald-700 transition hover:bg-emerald-400/30 dark:text-emerald-200"
+                aria-label="Open menu"
+              >
+                ...
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Split + grouped</h2>
+            <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Compound actions</div>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-6">
+            <div class="inline-flex overflow-hidden rounded-2xl border border-slate-200/80 dark:border-white/10">
+              <button class="bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900">Deploy</button>
+              <button
+                class="border-l border-emerald-300/30 bg-emerald-300/20 px-4 py-3 text-sm font-semibold text-emerald-800 dark:border-white/10 dark:text-emerald-100"
+              >
+                v
+              </button>
+            </div>
+            <div class="inline-flex overflow-hidden rounded-2xl border border-slate-200/80 bg-white dark:border-white/10 dark:bg-slate-900">
+              <button class="px-6 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100">Preview</button>
+              <button
+                class="border-l border-slate-200/80 px-4 py-3 text-sm font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300"
+              >
+                Share
+              </button>
+              <button
+                class="border-l border-slate-200/80 px-4 py-3 text-sm font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300"
+              >
+                Clone
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Toggle + segmented</h2>
+            <div class="mt-6 flex flex-wrap gap-4">
+              <div class="inline-flex rounded-full border border-emerald-400/50 bg-emerald-300/10 p-1 dark:border-emerald-300/50">
+                <button class="rounded-full bg-emerald-300 px-4 py-2 text-sm font-semibold text-slate-900">
+                  Live
+                </button>
+                <button class="rounded-full px-4 py-2 text-sm font-semibold text-emerald-700 dark:text-emerald-100">
+                  Paused
+                </button>
+              </div>
+              <div class="inline-flex rounded-2xl border border-slate-200/80 bg-white p-1 dark:border-white/10 dark:bg-slate-900">
+                <button class="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-800 dark:bg-white/10 dark:text-slate-100">
+                  24h
+                </button>
+                <button class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                  7d
+                </button>
+                <button class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                  30d
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h2 class="font-display text-2xl font-semibold">Status states</h2>
+            <div class="mt-6 flex flex-wrap items-center gap-4">
+              <button
+                class="rounded-xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-900 opacity-70"
+                disabled
+              >
+                Launching...
+              </button>
+              <button
+                class="rounded-xl border border-slate-200/80 bg-white px-6 py-3 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+              >
+                Disabled
+              </button>
+              <button
+                class="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 dark:text-slate-100"
+              >
+                Ready
+              </button>
+              <button
+                class="rounded-xl border border-rose-400/60 bg-rose-400/10 px-6 py-3 text-sm font-semibold text-rose-700 dark:text-rose-100"
+              >
+                Critical action
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Wide CTAs</h2>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">High-contrast prompts</p>
+          </div>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <button
+              class="flex items-center justify-between rounded-2xl bg-gradient-to-r from-emerald-400 via-emerald-300 to-sky-300 px-6 py-4 text-sm font-semibold text-slate-900 shadow-glow"
+            >
+              <span>Start incident response</span>
+              <span class="rounded-full bg-slate-900/20 px-3 py-1 text-xs font-semibold text-slate-900">
+                3 steps
+              </span>
+            </button>
+            <button
+              class="flex items-center justify-between rounded-2xl border border-slate-200/80 bg-white px-6 py-4 text-sm font-semibold text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-slate-100"
+            >
+              <span>Request SSO onboarding</span>
+              <span class="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-600 dark:border-white/20 dark:text-slate-200">
+                48h
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
