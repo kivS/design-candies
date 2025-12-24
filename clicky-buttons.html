@@ -538,20 +538,36 @@
     </section>
   </main>
   <script>
-    const dialogTintValue = "#0f172a";
-
+    const defaultTint = "#0f172a";
     const pageColor = document.getElementById("page-color");
     const categoryCards = document.querySelectorAll("[data-category-card]");
-    if (pageColor && categoryCards.length > 0) {
+    const dialogTintInputs = [];
+    const dialogs = document.querySelectorAll("dialog");
+    let currentTint = pageColor?.value || defaultTint;
+
+    const applyTint = (nextTint) => {
+      currentTint = nextTint;
+      if (pageColor) {
+        pageColor.value = nextTint;
+      }
+      categoryCards.forEach((card) => {
+        card.style.backgroundColor = nextTint;
+      });
+      dialogs.forEach((dialog) => {
+        dialog.style.backgroundColor = nextTint;
+      });
+      dialogTintInputs.forEach((input) => {
+        input.value = nextTint;
+      });
+    };
+
+    if (pageColor) {
       pageColor.addEventListener("input", (event) => {
-        const nextColor = event.target.value;
-        categoryCards.forEach((card) => {
-          card.style.backgroundColor = nextColor;
-        });
+        applyTint(event.target.value);
       });
     }
 
-    document.querySelectorAll("dialog").forEach((dialog) => {
+    dialogs.forEach((dialog) => {
       const header = dialog.querySelector("div");
       const closeButton = header?.querySelector("[data-dialog-close]");
       if (!header || !closeButton) {
@@ -571,14 +587,15 @@
       const input = document.createElement("input");
       input.type = "color";
       input.id = tintId;
-      input.value = dialogTintValue;
+      input.value = currentTint;
       input.className =
         "h-9 w-9 cursor-pointer rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm dark:border-white/10 dark:bg-slate-900";
 
       input.addEventListener("input", () => {
-        dialog.style.backgroundColor = input.value;
+        applyTint(input.value);
       });
 
+      dialogTintInputs.push(input);
       actionRow.append(label, input, closeButton);
       header.append(actionRow);
     });
