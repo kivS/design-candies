@@ -43,9 +43,18 @@
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Depth press</h2>
-          <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            3D click states
-          </span>
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              3D click states
+            </span>
+            <button
+              type="button"
+              data-dialog-open="dialog-depth-press"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+            >
+              Palette
+            </button>
+          </div>
         </div>
         <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
           Press these to feel the stacked layers. Each style uses a different shadow recipe for
@@ -92,7 +101,16 @@
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Matte depth</h2>
-            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">No gloss</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">No gloss</span>
+              <button
+                type="button"
+                data-dialog-open="dialog-matte-depth"
+                class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+              >
+                Palette
+              </button>
+            </div>
           </div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
             Flat paint + weighty ledge shadows for a grounded, chunky click.
@@ -117,7 +135,16 @@
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Inset press</h2>
-            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Sunken feel</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Sunken feel</span>
+              <button
+                type="button"
+                data-dialog-open="dialog-inset-press"
+                class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+              >
+                Palette
+              </button>
+            </div>
           </div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
             The press collapses into the surface with inset shadows and a softer pop.
@@ -144,7 +171,16 @@
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Pill depth</h2>
-            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Rounded edges</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Rounded edges</span>
+              <button
+                type="button"
+                data-dialog-open="dialog-pill-depth"
+                class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+              >
+                Palette
+              </button>
+            </div>
           </div>
           <div class="mt-6 flex flex-wrap gap-4">
             <button
@@ -166,7 +202,16 @@
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Outline depth</h2>
-            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Bordered stacks</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Bordered stacks</span>
+              <button
+                type="button"
+                data-dialog-open="dialog-outline-depth"
+                class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+              >
+                Palette
+              </button>
+            </div>
           </div>
           <div class="mt-6 flex flex-wrap gap-4">
             <button
@@ -188,7 +233,16 @@
       <div class="grid gap-6 lg:grid-cols-2">
         <div
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-          <h2 class="font-display text-2xl font-semibold">Icon + label depth</h2>
+          <div class="flex items-center justify-between">
+            <h2 class="font-display text-2xl font-semibold">Icon + label depth</h2>
+            <button
+              type="button"
+              data-dialog-open="dialog-icon-label-depth"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+            >
+              Palette
+            </button>
+          </div>
           <div class="mt-6 flex flex-wrap gap-4">
             <button
               class="depth-press depth-slate flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:bg-slate-100 dark:text-slate-900">
@@ -218,7 +272,16 @@
 
         <div
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
-          <h2 class="font-display text-2xl font-semibold">Icon-only taps</h2>
+          <div class="flex items-center justify-between">
+            <h2 class="font-display text-2xl font-semibold">Icon-only taps</h2>
+            <button
+              type="button"
+              data-dialog-open="dialog-icon-only-depth"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+            >
+              Palette
+            </button>
+          </div>
           <div class="mt-6 flex flex-wrap gap-4">
             <button
               class="depth-press depth-teal flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-400 text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
@@ -248,7 +311,16 @@
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Compound depth</h2>
-          <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Stacked controls</div>
+          <div class="flex items-center gap-3">
+            <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Stacked controls</div>
+            <button
+              type="button"
+              data-dialog-open="dialog-compound-depth"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+            >
+              Palette
+            </button>
+          </div>
         </div>
         <div class="mt-6 flex flex-wrap gap-4">
           <button
@@ -274,7 +346,16 @@
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Wide depth CTAs</h2>
-          <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Full-width impact</p>
+          <div class="flex items-center gap-3">
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Full-width impact</p>
+            <button
+              type="button"
+              data-dialog-open="dialog-wide-depth"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+            >
+              Palette
+            </button>
+          </div>
         </div>
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
           <button
@@ -294,8 +375,318 @@
           </button>
         </div>
       </div>
+
+      <dialog id="dialog-depth-press" aria-labelledby="dialog-depth-press-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Depth press</p>
+            <h3 id="dialog-depth-press-title" class="font-display text-2xl font-semibold">Color palette</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="depth-press"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-matte-depth" aria-labelledby="dialog-matte-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Matte depth</p>
+            <h3 id="dialog-matte-depth-title" class="font-display text-2xl font-semibold">Flat color sets</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="matte-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-inset-press" aria-labelledby="dialog-inset-press-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Inset press</p>
+            <h3 id="dialog-inset-press-title" class="font-display text-2xl font-semibold">Sunken palette</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="inset-press"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-pill-depth" aria-labelledby="dialog-pill-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Pill depth</p>
+            <h3 id="dialog-pill-depth-title" class="font-display text-2xl font-semibold">Rounded palette</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="pill-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-outline-depth" aria-labelledby="dialog-outline-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Outline depth</p>
+            <h3 id="dialog-outline-depth-title" class="font-display text-2xl font-semibold">Bordered stacks</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="outline-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-icon-label-depth" aria-labelledby="dialog-icon-label-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Icon + label depth</p>
+            <h3 id="dialog-icon-label-depth-title" class="font-display text-2xl font-semibold">Labeled icons</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="icon-label-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-icon-only-depth" aria-labelledby="dialog-icon-only-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Icon-only taps</p>
+            <h3 id="dialog-icon-only-depth-title" class="font-display text-2xl font-semibold">Tap palette</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-3 lg:grid-cols-4" data-palette="icon-only-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-compound-depth" aria-labelledby="dialog-compound-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Compound depth</p>
+            <h3 id="dialog-compound-depth-title" class="font-display text-2xl font-semibold">Layered actions</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="compound-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-wide-depth" aria-labelledby="dialog-wide-depth-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Wide depth CTAs</p>
+            <h3 id="dialog-wide-depth-title" class="font-display text-2xl font-semibold">Full-width palettes</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4" data-palette="wide-depth"></div>
+        </div>
+      </dialog>
     </section>
   </main>
+  <script>
+    const dialogOpeners = document.querySelectorAll("[data-dialog-open]");
+    const dialogClosers = document.querySelectorAll("[data-dialog-close]");
+
+    dialogOpeners.forEach((button) => {
+      const targetId = button.getAttribute("data-dialog-open");
+      const dialog = targetId ? document.getElementById(targetId) : null;
+      if (!dialog) {
+        return;
+      }
+      button.addEventListener("click", () => dialog.showModal());
+    });
+
+    dialogClosers.forEach((button) => {
+      const dialog = button.closest("dialog");
+      if (!dialog) {
+        return;
+      }
+      button.addEventListener("click", () => dialog.close());
+    });
+
+    const paletteColors = [
+      { name: "Graphite", bg: "bg-slate-900", text: "text-slate-50", ledge: "#0f172a" },
+      { name: "Iron", bg: "bg-slate-700", text: "text-slate-50", ledge: "#1f2937" },
+      { name: "Smoke", bg: "bg-slate-200", text: "text-slate-900", ledge: "#64748b" },
+      { name: "Cloud", bg: "bg-slate-100", text: "text-slate-900", ledge: "#94a3b8" },
+      { name: "Zinc", bg: "bg-zinc-800", text: "text-zinc-50", ledge: "#27272a" },
+      { name: "Stone", bg: "bg-stone-700", text: "text-stone-50", ledge: "#44403c" },
+      { name: "Sand", bg: "bg-amber-200", text: "text-amber-900", ledge: "#d97706" },
+      { name: "Amber", bg: "bg-amber-400", text: "text-amber-950", ledge: "#92400e" },
+      { name: "Sun", bg: "bg-yellow-400", text: "text-yellow-950", ledge: "#a16207" },
+      { name: "Lime", bg: "bg-lime-400", text: "text-lime-950", ledge: "#3f6212" },
+      { name: "Green", bg: "bg-green-500", text: "text-white", ledge: "#166534" },
+      { name: "Emerald", bg: "bg-emerald-400", text: "text-emerald-950", ledge: "#065f46" },
+      { name: "Teal", bg: "bg-teal-500", text: "text-white", ledge: "#0f766e" },
+      { name: "Cyan", bg: "bg-cyan-500", text: "text-slate-900", ledge: "#0e7490" },
+      { name: "Sky", bg: "bg-sky-400", text: "text-slate-900", ledge: "#0369a1" },
+      { name: "Blue", bg: "bg-blue-600", text: "text-white", ledge: "#1e3a8a" },
+      { name: "Indigo", bg: "bg-indigo-500", text: "text-white", ledge: "#312e81" },
+      { name: "Violet", bg: "bg-violet-500", text: "text-white", ledge: "#4c1d95" },
+      { name: "Purple", bg: "bg-purple-500", text: "text-white", ledge: "#6b21a8" },
+      { name: "Fuchsia", bg: "bg-fuchsia-500", text: "text-white", ledge: "#86198f" },
+      { name: "Pink", bg: "bg-pink-500", text: "text-white", ledge: "#9d174d" },
+      { name: "Rose", bg: "bg-rose-500", text: "text-white", ledge: "#9f1239" },
+      { name: "Orange", bg: "bg-orange-500", text: "text-white", ledge: "#c2410c" },
+      { name: "Red", bg: "bg-red-500", text: "text-white", ledge: "#991b1b" },
+      { name: "Copper", bg: "bg-orange-300", text: "text-orange-950", ledge: "#b45309" },
+    ];
+
+    const iconSet = [
+      "+",
+      "^",
+      "!",
+      "*",
+      "x",
+      "?",
+      "%",
+      "#",
+      "@",
+      "$",
+      "=",
+      "~",
+      "<",
+      ">",
+      "o",
+      "v",
+      "s",
+      "p",
+      "i",
+      "c",
+      "t",
+      "r",
+      "a",
+      "g",
+      "d",
+    ];
+
+    const badgeSet = [
+      "3 steps",
+      "beta",
+      "2 min",
+      "new",
+      "today",
+      "live",
+      "2h",
+      "soon",
+      "v2",
+      "alpha",
+      "fast",
+      "sync",
+      "auto",
+      "queue",
+      "pilot",
+      "rollout",
+      "next",
+      "draft",
+      "ready",
+      "hold",
+      "hotfix",
+      "ship",
+      "alert",
+      "now",
+      "prio",
+    ];
+
+    const isLightText = (textClass) => textClass === "text-white" || textClass.endsWith("-50");
+
+    const baseButton = (classes, shape, color, padding) =>
+      `<button class="${classes} w-full ${shape} ${color.bg} ${color.text} ${padding} text-sm font-semibold" style="--depth-ledge: ${color.ledge};">${color.name}</button>`;
+
+    const outlineButton = (color) => {
+      const parts = color.bg.split("-");
+      const family = parts[1] || "slate";
+      const border = `border-${family}-300`;
+      const text = `text-${family}-700`;
+      const darkBorder = `dark:border-${family}-400/50`;
+      const darkText = `dark:text-${family}-200`;
+      return `<button class="depth-press depth-ghost w-full rounded-xl border ${border} bg-white px-5 py-3 text-sm font-semibold ${text} ${darkBorder} dark:bg-slate-900 ${darkText}">${color.name}</button>`;
+    };
+
+    const iconLabelButton = (color, index) => {
+      const icon = iconSet[index % iconSet.length];
+      return `<button class="depth-press depth-matte w-full rounded-xl ${color.bg} ${color.text} px-5 py-3 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-current">${icon}</span>${color.name} action</span></button>`;
+    };
+
+    const iconOnlyButton = (color, index) => {
+      const icon = iconSet[index % iconSet.length];
+      return `<button class="depth-press depth-matte flex h-12 w-12 items-center justify-center rounded-xl ${color.bg} ${color.text}" style="--depth-ledge: ${color.ledge};">${icon}</button>`;
+    };
+
+    const wideButton = (color, index) => {
+      const badge = badgeSet[index % badgeSet.length];
+      const badgeBg = isLightText(color.text) ? "bg-white/10" : "bg-black/10";
+      return `<button class="depth-press depth-matte flex w-full items-center justify-between rounded-2xl ${color.bg} ${color.text} px-6 py-4 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span>${color.name} rollout</span><span class="rounded-full ${badgeBg} px-3 py-1 text-xs font-semibold text-current">${badge}</span></button>`;
+    };
+
+    const paletteRenderers = {
+      "depth-press": (color) => baseButton("depth-press depth-matte", "rounded-xl", color, "px-5 py-3"),
+      "matte-depth": (color) => baseButton("depth-press depth-matte", "rounded-xl", color, "px-5 py-3"),
+      "inset-press": (color) => baseButton("depth-press depth-inset", "rounded-xl", color, "px-5 py-3"),
+      "pill-depth": (color) => baseButton("depth-press depth-matte", "rounded-full", color, "px-6 py-3"),
+      "outline-depth": (color) => outlineButton(color),
+      "icon-label-depth": (color, index) => iconLabelButton(color, index),
+      "icon-only-depth": (color, index) => iconOnlyButton(color, index),
+      "compound-depth": (color) => baseButton("depth-press depth-matte", "rounded-2xl", color, "px-6 py-3"),
+      "wide-depth": (color, index) => wideButton(color, index),
+    };
+
+    document.querySelectorAll("[data-palette]").forEach((grid) => {
+      const type = grid.getAttribute("data-palette");
+      const render = paletteRenderers[type];
+      if (!render) {
+        return;
+      }
+      grid.innerHTML = paletteColors.map((color, index) => render(color, index)).join("");
+    });
+  </script>
 </body>
 
 </html>
