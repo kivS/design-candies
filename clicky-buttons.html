@@ -551,6 +551,20 @@
       button.addEventListener("click", () => dialog.close());
     });
 
+    document.querySelectorAll("dialog").forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        const clickedOutside =
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom;
+        if (clickedOutside) {
+          dialog.close();
+        }
+      });
+    });
+
     const paletteColors = [
       { name: "Graphite", bg: "bg-slate-900", text: "text-slate-50", ledge: "#0f172a" },
       { name: "Iron", bg: "bg-slate-700", text: "text-slate-50", ledge: "#1f2937" },
