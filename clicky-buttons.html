@@ -566,8 +566,6 @@
     });
 
     const paletteColors = [
-      { name: "Graphite", bg: "bg-slate-900", text: "text-slate-50", ledge: "#0f172a" },
-      { name: "Iron", bg: "bg-slate-700", text: "text-slate-50", ledge: "#1f2937" },
       { name: "Smoke", bg: "bg-slate-200", text: "text-slate-900", ledge: "#64748b" },
       { name: "Cloud", bg: "bg-slate-100", text: "text-slate-900", ledge: "#94a3b8" },
       { name: "Zinc", bg: "bg-zinc-800", text: "text-zinc-50", ledge: "#27272a" },
@@ -591,6 +589,17 @@
       { name: "Orange", bg: "bg-orange-500", text: "text-white", ledge: "#c2410c" },
       { name: "Red", bg: "bg-red-500", text: "text-white", ledge: "#991b1b" },
       { name: "Copper", bg: "bg-orange-300", text: "text-orange-950", ledge: "#b45309" },
+      { name: "Midnight", bg: "bg-slate-900", text: "text-slate-50", ledge: "#1f2937", accent: "ring-1 ring-white/10" },
+      { name: "Abyss", bg: "bg-slate-950", text: "text-slate-50", ledge: "#0f172a", accent: "ring-1 ring-white/10" },
+      { name: "Graphite", bg: "bg-slate-800", text: "text-slate-50", ledge: "#0b1120", accent: "ring-1 ring-white/10" },
+      { name: "Obsidian", bg: "bg-slate-900", text: "text-slate-50", ledge: "#0f766e", accent: "ring-1 ring-white/10" },
+      { name: "Deep Indigo", bg: "bg-slate-900", text: "text-slate-50", ledge: "#4338ca", accent: "ring-1 ring-white/10" },
+      { name: "Night Rose", bg: "bg-slate-900", text: "text-slate-50", ledge: "#be123c", accent: "ring-1 ring-white/10" },
+      { name: "Onyx", bg: "bg-zinc-950", text: "text-zinc-50", ledge: "#27272a", accent: "ring-1 ring-white/10" },
+      { name: "Charcoal", bg: "bg-zinc-900", text: "text-zinc-50", ledge: "#3f3f46", accent: "ring-1 ring-white/10" },
+      { name: "Carbon", bg: "bg-neutral-900", text: "text-neutral-50", ledge: "#525252", accent: "ring-1 ring-white/10" },
+      { name: "Basalt", bg: "bg-stone-900", text: "text-stone-50", ledge: "#57534e", accent: "ring-1 ring-white/10" },
+      { name: "Ink", bg: "bg-gray-900", text: "text-gray-50", ledge: "#374151", accent: "ring-1 ring-white/10" },
     ];
 
     const iconSet = [
@@ -651,8 +660,10 @@
 
     const isLightText = (textClass) => textClass === "text-white" || textClass.endsWith("-50");
 
-    const baseButton = (classes, shape, color, padding) =>
-      `<button class="${classes} w-full ${shape} ${color.bg} ${color.text} ${padding} text-sm font-semibold" style="--depth-ledge: ${color.ledge};">${color.name}</button>`;
+    const baseButton = (classes, shape, color, padding) => {
+      const accent = color.accent ? ` ${color.accent}` : "";
+      return `<button class="${classes} w-full ${shape} ${color.bg} ${color.text}${accent} ${padding} text-sm font-semibold" style="--depth-ledge: ${color.ledge};">${color.name}</button>`;
+    };
 
     const outlineButton = (color) => {
       const parts = color.bg.split("-");
@@ -666,18 +677,21 @@
 
     const iconLabelButton = (color, index) => {
       const icon = iconSet[index % iconSet.length];
-      return `<button class="depth-press depth-matte w-full rounded-xl ${color.bg} ${color.text} px-5 py-3 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-current">${icon}</span>${color.name} action</span></button>`;
+      const accent = color.accent ? ` ${color.accent}` : "";
+      return `<button class="depth-press depth-matte w-full rounded-xl ${color.bg} ${color.text}${accent} px-5 py-3 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-current">${icon}</span>${color.name} action</span></button>`;
     };
 
     const iconOnlyButton = (color, index) => {
       const icon = iconSet[index % iconSet.length];
-      return `<button class="depth-press depth-matte flex h-12 w-12 items-center justify-center rounded-xl ${color.bg} ${color.text}" style="--depth-ledge: ${color.ledge};">${icon}</button>`;
+      const accent = color.accent ? ` ${color.accent}` : "";
+      return `<button class="depth-press depth-matte flex h-12 w-12 items-center justify-center rounded-xl ${color.bg} ${color.text}${accent}" style="--depth-ledge: ${color.ledge};">${icon}</button>`;
     };
 
     const wideButton = (color, index) => {
       const badge = badgeSet[index % badgeSet.length];
       const badgeBg = isLightText(color.text) ? "bg-white/10" : "bg-black/10";
-      return `<button class="depth-press depth-matte flex w-full items-center justify-between rounded-2xl ${color.bg} ${color.text} px-6 py-4 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span>${color.name} rollout</span><span class="rounded-full ${badgeBg} px-3 py-1 text-xs font-semibold text-current">${badge}</span></button>`;
+      const accent = color.accent ? ` ${color.accent}` : "";
+      return `<button class="depth-press depth-matte flex w-full items-center justify-between rounded-2xl ${color.bg} ${color.text}${accent} px-6 py-4 text-sm font-semibold" style="--depth-ledge: ${color.ledge};"><span>${color.name} rollout</span><span class="rounded-full ${badgeBg} px-3 py-1 text-xs font-semibold text-current">${badge}</span></button>`;
     };
 
     const paletteRenderers = {
