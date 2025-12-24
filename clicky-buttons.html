@@ -26,20 +26,27 @@
           class="inline-flex items-center rounded-full border border-slate-300 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700 transition hover:border-emerald-500/70 hover:text-emerald-600 dark:border-white/20 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200">
           Home
         </a>
-
       </div>
-      <div class="max-w-3xl space-y-4">
-        <h1 class="font-display text-4xl font-semibold sm:text-5xl">
-          Clicky buttons
-        </h1>
-        <p class="font-body text-lg text-slate-600 dark:text-slate-300">
-          Buttons that have depth when pressed, like PostHog or Sentry
-        </p>
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div class="max-w-3xl space-y-4">
+          <h1 class="font-display text-4xl font-semibold sm:text-5xl">
+            Clicky buttons
+          </h1>
+          <p class="font-body text-lg text-slate-600 dark:text-slate-300">
+            Buttons that have depth when pressed, like PostHog or Sentry
+          </p>
+        </div>
+        <div
+          class="inline-flex items-center gap-3 rounded-full border border-slate-200/80 bg-white/90 px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-700 shadow-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200">
+          <label for="page-color">Page tint</label>
+          <input id="page-color" type="color" value="#0f172a"
+            class="h-9 w-9 cursor-pointer rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm dark:border-white/10 dark:bg-slate-900" />
+        </div>
       </div>
     </header>
 
     <section class="mt-10 grid gap-8">
-      <div
+      <div data-category-card
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Depth press</h2>
@@ -97,7 +104,7 @@
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Matte depth</h2>
@@ -131,7 +138,7 @@
           </div>
         </div>
 
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Inset press</h2>
@@ -167,7 +174,7 @@
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Pill depth</h2>
@@ -198,7 +205,7 @@
           </div>
         </div>
 
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Outline depth</h2>
@@ -231,7 +238,7 @@
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Icon + label depth</h2>
@@ -270,7 +277,7 @@
           </div>
         </div>
 
-        <div
+        <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
           <div class="flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold">Icon-only taps</h2>
@@ -307,7 +314,7 @@
         </div>
       </div>
 
-      <div
+      <div data-category-card
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Compound depth</h2>
@@ -342,7 +349,7 @@
         </div>
       </div>
 
-      <div
+      <div data-category-card
         class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="font-display text-2xl font-semibold">Wide depth CTAs</h2>
@@ -532,6 +539,17 @@
   </main>
   <script>
     const dialogTintValue = "#0f172a";
+
+    const pageColor = document.getElementById("page-color");
+    const categoryCards = document.querySelectorAll("[data-category-card]");
+    if (pageColor && categoryCards.length > 0) {
+      pageColor.addEventListener("input", (event) => {
+        const nextColor = event.target.value;
+        categoryCards.forEach((card) => {
+          card.style.backgroundColor = nextColor;
+        });
+      });
+    }
 
     document.querySelectorAll("dialog").forEach((dialog) => {
       const header = dialog.querySelector("div");
