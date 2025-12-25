@@ -1,2 +1,2 @@
-#! /usr/bin/env/ sh
+#! /usr/bin/env sh
 bun run --watch index.ts
