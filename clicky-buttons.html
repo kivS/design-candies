@@ -237,6 +237,45 @@
         </div>
       </div>
 
+      <div data-category-card
+        class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <div class="flex items-center justify-between">
+          <h2 class="font-display text-2xl font-semibold">Fully rounded</h2>
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Bubble CTA</span>
+            <button type="button" data-dialog-open="dialog-fully-rounded"
+              class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200">
+              Palette
+            </button>
+          </div>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Circular taps with icons for quick, tactile actions.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <button
+            class="depth-press depth-matte flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-lg font-semibold text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:bg-slate-100 dark:text-slate-900"
+            aria-label="Start capture">
+            +
+          </button>
+          <button
+            class="depth-press depth-teal flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400 text-lg font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 dark:bg-emerald-300"
+            aria-label="Launch sync">
+            ^
+          </button>
+          <button
+            class="depth-press depth-indigo flex h-14 w-14 items-center justify-center rounded-full bg-indigo-500 text-lg font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 dark:bg-indigo-400"
+            aria-label="Route traffic">
+            !
+          </button>
+          <button
+            class="depth-press depth-rose flex h-14 w-14 items-center justify-center rounded-full bg-rose-500 text-lg font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 dark:bg-rose-400"
+            aria-label="Pause rollout">
+            x
+          </button>
+        </div>
+      </div>
+
       <div class="grid gap-6 lg:grid-cols-2">
         <div data-category-card
           class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
@@ -448,6 +487,23 @@
         </div>
         <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="pill-depth"></div>
+        </div>
+      </dialog>
+
+      <dialog id="dialog-fully-rounded" aria-labelledby="dialog-fully-rounded-title"
+        class="w-[min(92vw,900px)] max-h-[85vh] overflow-hidden overscroll-y-contain rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+        <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Fully rounded</p>
+            <h3 id="dialog-fully-rounded-title" class="font-display text-2xl font-semibold">Bubble palette</h3>
+          </div>
+          <button type="button" data-dialog-close
+            class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+            Close
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-6">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-palette="fully-rounded"></div>
         </div>
       </dialog>
 
@@ -756,6 +812,12 @@
       return `<button class="depth-press depth-matte flex h-12 w-12 items-center justify-center rounded-xl ${color.bg} ${color.text}${accent}" style="--depth-ledge: ${color.ledge};">${icon}</button>`;
     };
 
+    const iconCircleButton = (color, index) => {
+      const icon = iconSet[index % iconSet.length];
+      const accent = color.accent ? ` ${color.accent}` : "";
+      return `<button class="depth-press depth-matte flex h-14 w-14 items-center justify-center rounded-full ${color.bg} ${color.text}${accent}" style="--depth-ledge: ${color.ledge};">${icon}</button>`;
+    };
+
     const wideButton = (color, index) => {
       const badge = badgeSet[index % badgeSet.length];
       const badgeBg = isLightText(color.text) ? "bg-white/10" : "bg-black/10";
@@ -768,6 +830,7 @@
       "matte-depth": (color) => baseButton("depth-press depth-matte", "rounded-xl", color, "px-5 py-3"),
       "inset-press": (color) => baseButton("depth-press depth-inset", "rounded-xl", color, "px-5 py-3"),
       "pill-depth": (color) => baseButton("depth-press depth-matte", "rounded-full", color, "px-6 py-3"),
+      "fully-rounded": (color, index) => iconCircleButton(color, index),
       "outline-depth": (color) => outlineButton(color),
       "icon-label-depth": (color, index) => iconLabelButton(color, index),
       "icon-only-depth": (color, index) => iconOnlyButton(color, index),
