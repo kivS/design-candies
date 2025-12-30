@@ -534,6 +534,35 @@
       box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3);
     }
 
+    .tablet-shell {
+      width: 520px;
+      height: 660px;
+      padding: 14px;
+      background: #0f1417;
+      border-radius: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 34px 70px -48px rgba(0, 0, 0, 0.7);
+    }
+
+    .tablet-screen {
+      height: 100%;
+      border-radius: 30px;
+      background: var(--color-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tablet-camera {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.5);
+    }
+
     .theme-card {
       background: var(--color-secondary, #fff9f4);
       border-radius: calc(var(--radius, 20px) - 4px);
@@ -637,6 +666,11 @@
         width: 290px;
         height: 590px;
       }
+
+      .tablet-shell {
+        width: 420px;
+        height: 600px;
+      }
     }
 
     @media (max-width: 900px) {
@@ -652,6 +686,11 @@
       .web-frame {
         width: 620px;
         height: 520px;
+      }
+
+      .tablet-shell {
+        width: 520px;
+        height: 620px;
       }
     }
 
@@ -704,6 +743,11 @@
       .mobile-shell {
         width: 260px;
         height: 560px;
+      }
+
+      .tablet-shell {
+        width: 480px;
+        height: 620px;
       }
     }
   </style>
@@ -830,53 +874,100 @@
               </div>
 
               <div class="space-y-4">
-                <p class="frame-label text-[0.55rem] font-semibold uppercase text-white/60">Mobile</p>
-                <div class="mobile-shell">
-                  <div class="mobile-screen">
-                    <div class="mobile-notch"></div>
-                    <div class="flex h-full flex-col px-5 pb-6 pt-12">
-                      <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
-                        <span>9:41</span>
-                        <span>LTE 83%</span>
-                      </div>
-                      <div class="mt-6">
-                        <span class="theme-chip">Daily ritual</span>
-                        <h3 class="theme-display mt-4 text-2xl" data-text-target="mobileTitle">Daily focus</h3>
-                        <p class="mt-3 text-sm text-[var(--color-muted)]" data-text-target="mobileBody">
-                          Queue the top three rituals before the standup.
-                        </p>
-                      </div>
-                      <div class="mt-6 space-y-4">
-                        <div class="theme-card p-4">
-                          <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
-                            <span>Deep work</span>
-                            <span>40 min</span>
+                <p class="frame-label text-[0.55rem] font-semibold uppercase text-white/60">Devices</p>
+                <div class="flex items-start gap-14">
+                  <div class="tablet-shell">
+                    <div class="tablet-screen">
+                      <div class="tablet-camera"></div>
+                      <div class="flex h-full flex-col px-8 pb-8 pt-12">
+                        <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                          <span>Wednesday</span>
+                          <span>10:32 AM</span>
+                        </div>
+                        <div class="mt-6 grid grid-cols-[1.2fr,1fr] gap-6">
+                          <div class="space-y-4">
+                            <span class="theme-chip">Workspace</span>
+                            <h3 class="theme-display text-2xl mt-3 leading-tight" data-text-target="mobileTitle">Daily
+                              focus</h3>
+                            <p class="text-sm text-[var(--color-muted)]" data-text-target="mobileBody">
+                              Queue the top three rituals before the standup.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                              <button class="theme-button" data-text-target="cta">Open theme</button>
+                              <button class="theme-button secondary">View tasks</button>
+                            </div>
                           </div>
-                          <p class="theme-display mt-2 text-lg">Ship the palette</p>
-                          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
-                            <span class="token-dot" style="background: var(--color-primary)"></span>
-                            Primary focus
+                          <div class="space-y-3">
+                            <div class="theme-card p-4">
+                              <p class="text-xs text-[var(--color-muted)]">Focus window</p>
+                              <p class="theme-display mt-2 text-lg">45 min</p>
+                              <p class="text-xs text-[var(--color-muted)]">Blockers cleared</p>
+                            </div>
+                            <div class="theme-card p-4">
+                              <p class="text-xs text-[var(--color-muted)]">Next ritual</p>
+                              <p class="theme-display mt-2 text-lg">Review handoff</p>
+                              <p class="text-xs text-[var(--color-muted)]">Team sync</p>
+                            </div>
                           </div>
                         </div>
-                        <div class="theme-card p-4">
-                          <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
-                            <span>Sync</span>
-                            <span>Today</span>
-                          </div>
-                          <p class="theme-display mt-2 text-lg">Review handoff</p>
-                          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
-                            <span class="token-dot" style="background: var(--color-primary)"></span>
-                            Primary focus
-                          </div>
+                        <div
+                          class="mt-auto grid grid-cols-4 gap-3 text-[0.6rem] font-semibold uppercase text-[var(--color-muted)]">
+                          <span>Dashboard</span>
+                          <span>Plans</span>
+                          <span>Inbox</span>
+                          <span>More</span>
                         </div>
                       </div>
-                      <button class="theme-button mt-auto w-full" data-text-target="cta">Open theme</button>
-                      <div
-                        class="mt-5 grid grid-cols-4 gap-2 text-[0.6rem] font-semibold uppercase text-[var(--color-muted)]">
-                        <span>Home</span>
-                        <span>Plans</span>
-                        <span>Inbox</span>
-                        <span>More</span>
+                    </div>
+                  </div>
+
+                  <div class="mobile-shell">
+                    <div class="mobile-screen">
+                      <div class="mobile-notch"></div>
+                      <div class="flex h-full flex-col px-5 pb-6 pt-12">
+                        <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                          <span>9:41</span>
+                          <span>LTE 83%</span>
+                        </div>
+                        <div class="mt-6">
+                          <span class="theme-chip">Daily ritual</span>
+                          <h3 class="theme-display mt-4 text-2xl" data-text-target="mobileTitle">Daily focus</h3>
+                          <p class="mt-3 text-sm text-[var(--color-muted)]" data-text-target="mobileBody">
+                            Queue the top three rituals before the standup.
+                          </p>
+                        </div>
+                        <div class="mt-6 space-y-4">
+                          <div class="theme-card p-4">
+                            <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                              <span>Deep work</span>
+                              <span>40 min</span>
+                            </div>
+                            <p class="theme-display mt-2 text-lg">Ship the palette</p>
+                            <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+                              <span class="token-dot" style="background: var(--color-primary)"></span>
+                              Primary focus
+                            </div>
+                          </div>
+                          <div class="theme-card p-4">
+                            <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                              <span>Sync</span>
+                              <span>Today</span>
+                            </div>
+                            <p class="theme-display mt-2 text-lg">Review handoff</p>
+                            <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+                              <span class="token-dot" style="background: var(--color-primary)"></span>
+                              Primary focus
+                            </div>
+                          </div>
+                        </div>
+                        <button class="theme-button mt-auto w-full" data-text-target="cta">Open theme</button>
+                        <div
+                          class="mt-5 grid grid-cols-4 gap-2 text-[0.6rem] font-semibold uppercase text-[var(--color-muted)]">
+                          <span>Home</span>
+                          <span>Plans</span>
+                          <span>Inbox</span>
+                          <span>More</span>
+                        </div>
                       </div>
                     </div>
                   </div>
