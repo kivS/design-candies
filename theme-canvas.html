@@ -1,0 +1,1603 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Canvas</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --panel-bg: rgba(255, 255, 255, 0.92);
+      --panel-border: rgba(15, 23, 42, 0.08);
+      --panel-shadow: 0 30px 60px -40px rgba(15, 23, 42, 0.5);
+      --frame-shadow: 0 35px 70px -50px rgba(8, 12, 16, 0.8);
+      --canvas-grid: rgba(148, 163, 184, 0.12);
+      --ui-bg: #0b1115;
+      --dock-bg: rgba(15, 23, 42, 0.92);
+      --dock-card-bg: rgba(30, 41, 53, 0.9);
+      --dock-text: #e2e8f0;
+      --dock-muted: #94a3b8;
+      --dock-border: rgba(148, 163, 184, 0.22);
+      --dock-chip-bg: rgba(30, 41, 53, 0.85);
+      --dock-chip-text: #e2e8f0;
+      --dock-input-bg: rgba(15, 23, 42, 0.7);
+      --dock-input-text: #e2e8f0;
+      --dock-input-border: rgba(148, 163, 184, 0.25);
+      --dock-scroll-thumb: rgba(148, 163, 184, 0.3);
+    }
+
+    body {
+      font-family: "Manrope", "ui-sans-serif", "system-ui";
+      background: var(--ui-bg);
+      color: var(--dock-text);
+      overflow: hidden;
+    }
+
+    body[data-mode="light"] {
+      --ui-bg: #f5f1ea;
+      --dock-bg: rgba(245, 247, 250, 0.92);
+      --dock-card-bg: rgba(255, 255, 255, 0.92);
+      --dock-text: #0f172a;
+      --dock-muted: #64748b;
+      --dock-border: rgba(15, 23, 42, 0.12);
+      --dock-chip-bg: #f8fafc;
+      --dock-chip-text: #334155;
+      --dock-input-bg: #ffffff;
+      --dock-input-text: #0f172a;
+      --dock-input-border: rgba(15, 23, 42, 0.15);
+      --dock-scroll-thumb: rgba(15, 23, 42, 0.2);
+    }
+
+    .theme-root {
+      --color-bg: #f6efe8;
+      --color-primary: #ff6a3d;
+      --color-secondary: #fff9f4;
+      --color-accent: #247b7b;
+      --color-text: #1f2a2d;
+      --color-muted: #6b7b80;
+      --radius: 20px;
+      --font-display: "Space Grotesk", "ui-sans-serif", "system-ui";
+      --font-body: "Inter", "ui-sans-serif", "system-ui";
+      color: var(--color-text);
+      font-family: var(--font-body);
+    }
+
+    .theme-display {
+      font-family: var(--font-display, "Bricolage Grotesque", "ui-sans-serif", "system-ui");
+      color: var(--color-text, #1f2a2d);
+    }
+
+    .canvas-surface {
+      background-color: #0e1518;
+      background-image:
+        linear-gradient(90deg, var(--canvas-grid) 1px, transparent 1px),
+        linear-gradient(var(--canvas-grid) 1px, transparent 1px),
+        radial-gradient(circle at 12% 15%, rgba(251, 191, 36, 0.12), transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.12), transparent 48%),
+        radial-gradient(circle at 72% 80%, rgba(74, 222, 128, 0.1), transparent 45%);
+      background-size: 64px 64px, 64px 64px, auto, auto, auto;
+      height: 100%;
+    }
+
+    body[data-mode="light"] .canvas-surface {
+      background-color: #f6f1ea;
+      background-image:
+        linear-gradient(90deg, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        linear-gradient(rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 12% 15%, rgba(251, 191, 36, 0.18), transparent 50%),
+        radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.18), transparent 50%),
+        radial-gradient(circle at 72% 80%, rgba(74, 222, 128, 0.16), transparent 50%);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .canvas-shell {
+      height: calc(100vh - 32px);
+    }
+
+    .canvas-frame {
+      height: 100%;
+      width: 100%;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--frame-shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .canvas-header {
+      position: absolute;
+      left: 26px;
+      top: 24px;
+      z-index: 20;
+      max-width: 360px;
+      color: rgba(248, 250, 252, 0.95);
+    }
+
+    .canvas-kicker {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .canvas-title {
+      margin-top: 0.6rem;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .canvas-header .theme-display {
+      color: rgba(248, 250, 252, 0.95);
+    }
+
+    body[data-mode="light"] .canvas-header {
+      color: #1f2937;
+    }
+
+    body[data-mode="light"] .canvas-header .theme-display {
+      color: #0f172a;
+    }
+
+    .canvas-hint {
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    body[data-mode="light"] .canvas-kicker {
+      color: rgba(100, 116, 139, 0.9);
+    }
+
+    body[data-mode="light"] .canvas-hint {
+      color: rgba(71, 85, 105, 0.75);
+    }
+
+    .canvas-home {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(15, 23, 42, 0.55);
+      color: rgba(248, 250, 252, 0.9);
+      padding: 0.45rem 0.9rem;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      text-decoration: none;
+    }
+
+    body[data-mode="light"] .canvas-home {
+      border-color: rgba(15, 23, 42, 0.2);
+      background: rgba(255, 255, 255, 0.85);
+      color: #0f172a;
+    }
+
+    .canvas-legend {
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    body[data-mode="light"] .canvas-legend {
+      color: rgba(30, 41, 59, 0.7);
+    }
+
+    .control-dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .dock-inner {
+      pointer-events: auto;
+      max-width: min(1400px, calc(100vw - 32px));
+      background: var(--dock-bg);
+      border: 1px solid var(--dock-border);
+      border-radius: 26px;
+      padding: 8px;
+      box-shadow: 0 32px 70px -48px rgba(8, 12, 16, 0.85);
+      backdrop-filter: blur(14px);
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .dock-scroll {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 6px 4px;
+    }
+
+    .dock-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .dock-scroll::-webkit-scrollbar-thumb {
+      background: var(--dock-scroll-thumb);
+      border-radius: 999px;
+    }
+
+    .dock-group {
+      min-width: 240px;
+      border-radius: 18px;
+      border: 1px solid var(--dock-border);
+      background: var(--dock-card-bg);
+      padding: 10px 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .dock-group--wide {
+      min-width: 360px;
+    }
+
+    .dock-group--colors {
+      min-width: 440px;
+    }
+
+    .dock-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .dock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .dock-title {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--dock-muted);
+    }
+
+    .dock-value {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--dock-text);
+    }
+
+    .dock-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dock-stack {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .dock-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dock-colors {
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+    }
+
+    .dock-copy-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dock-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--dock-muted);
+    }
+
+    .dock-color,
+    .dock-field {
+      display: grid;
+      gap: 4px;
+    }
+
+    .dock-color-input {
+      width: 40px;
+      height: 32px;
+      border-radius: 10px;
+      border: 1px solid var(--dock-input-border);
+      background: var(--dock-input-bg);
+      padding: 0.15rem;
+    }
+
+    .dock-input,
+    .dock-select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--dock-input-border);
+      background: var(--dock-input-bg);
+      padding: 0.35rem 0.5rem;
+      font-size: 0.75rem;
+      color: var(--dock-input-text);
+    }
+
+    .dock-input:focus,
+    .dock-select:focus {
+      outline: 2px solid rgba(36, 123, 123, 0.4);
+      outline-offset: 2px;
+    }
+
+    .dock-button,
+    .dock-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid var(--dock-border);
+      background: var(--dock-card-bg);
+      padding: 0.35rem 0.7rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--dock-text);
+    }
+
+    .dock-chip {
+      border-radius: 12px;
+      text-transform: none;
+      letter-spacing: 0.01em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--dock-chip-text);
+      background: var(--dock-chip-bg);
+    }
+
+    .dock-button-wide {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .dock-range {
+      width: 180px;
+      accent-color: var(--color-primary);
+    }
+
+    .dock-color-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dock-hex {
+      min-width: 120px;
+      border-radius: 10px;
+      border: 1px solid var(--dock-input-border);
+      background: var(--dock-input-bg);
+      padding: 0.35rem 0.5rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--dock-input-text);
+    }
+
+    .dock-toggle {
+      position: absolute;
+      left: 50%;
+      top: -22px;
+      transform: translateX(-50%);
+      z-index: 45;
+      pointer-events: auto;
+      height: 36px;
+      width: 52px;
+      border-radius: 999px;
+      border: 1px solid var(--dock-border);
+      background: var(--dock-bg);
+      color: var(--dock-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: transform 0.35s ease, background 0.35s ease;
+      box-shadow: 0 10px 24px -18px rgba(8, 12, 16, 0.6);
+    }
+
+    .dock-toggle span {
+      display: inline-flex;
+      transform: translateY(-1px);
+    }
+
+    body.dock-hidden .dock-inner {
+      transform: translateY(calc(100% + 32px));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.dock-hidden .dock-toggle {
+      position: fixed;
+      top: auto;
+      bottom: 20px;
+      transform: translateX(-50%);
+    }
+
+    [data-canvas] {
+      touch-action: none;
+    }
+
+    .canvas-stage {
+      width: max-content;
+      gap: 70px;
+      pointer-events: none;
+      transform-origin: top left;
+    }
+
+    .frame-shell {
+      border-radius: 32px;
+      border: 1px solid rgba(15, 23, 42, 0.2);
+      box-shadow: var(--frame-shadow);
+      background: rgba(248, 250, 252, 0.05);
+      backdrop-filter: blur(12px);
+    }
+
+    .frame-label {
+      letter-spacing: 0.32em;
+      color: rgba(248, 250, 252, 0.7);
+    }
+
+    body[data-mode="light"] .frame-label {
+      color: rgba(15, 23, 42, 0.6);
+    }
+
+    .web-frame {
+      width: 860px;
+      height: 540px;
+      padding: 18px;
+    }
+
+    .web-screen {
+      background: var(--color-bg);
+      border-radius: 26px;
+      height: 100%;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      position: relative;
+    }
+
+    .web-screen::after {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 70%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .mobile-shell {
+      width: 320px;
+      height: 640px;
+      padding: 12px;
+      background: #0f1417;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.7);
+    }
+
+    .mobile-screen {
+      height: 100%;
+      border-radius: 30px;
+      background: var(--color-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mobile-notch {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 22px;
+      border-radius: 999px;
+      background: #0f1417;
+      z-index: 2;
+      box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-card {
+      background: var(--color-secondary, #fff9f4);
+      border-radius: calc(var(--radius, 20px) - 4px);
+      box-shadow: 0 16px 30px -24px rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .theme-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    .theme-button {
+      border-radius: calc(var(--radius) - 2px);
+      background: var(--color-primary);
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.6);
+    }
+
+    .theme-button.secondary {
+      background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+      color: var(--color-primary);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+      box-shadow: none;
+    }
+
+    .theme-chip {
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--color-accent) 16%, transparent);
+      color: var(--color-accent);
+      padding: 0.35rem 0.8rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+    }
+
+    .token-dot {
+      height: 18px;
+      width: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .control-input,
+    .control-select {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.15);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .control-input:focus,
+    .control-select:focus {
+      outline: 2px solid rgba(36, 123, 123, 0.35);
+      outline-offset: 2px;
+    }
+
+    .control-color {
+      height: 42px;
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.2);
+      background: #fff;
+      padding: 0.35rem;
+    }
+
+    .range-track {
+      accent-color: var(--color-primary);
+    }
+
+    .cursor-grabbing {
+      cursor: grabbing;
+    }
+
+    @media (max-width: 1100px) {
+      .canvas-shell {
+        height: calc(100vh - 24px);
+      }
+
+      .dock-inner {
+        max-width: calc(100vw - 24px);
+      }
+
+      .canvas-stage {
+        gap: 40px;
+      }
+
+      .web-frame {
+        width: 720px;
+        height: 480px;
+      }
+
+      .mobile-shell {
+        width: 290px;
+        height: 590px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .canvas-title {
+        font-size: 1.4rem;
+      }
+
+      .canvas-stage {
+        flex-direction: column;
+        gap: 50px;
+      }
+
+      .web-frame {
+        width: 620px;
+        height: 520px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .canvas-shell {
+        height: calc(100vh - 24px);
+      }
+
+      .canvas-header {
+        left: 16px;
+        top: 16px;
+        max-width: 240px;
+      }
+
+      .canvas-home {
+        right: 16px;
+        top: 16px;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .canvas-legend {
+        left: 16px;
+      }
+
+      .dock-range {
+        width: 140px;
+      }
+
+      .control-dock {
+        bottom: 12px;
+      }
+
+      body.dock-hidden .dock-toggle {
+        bottom: 12px;
+      }
+
+      .dock-hex {
+        min-width: 88px;
+      }
+
+      .web-frame {
+        width: 520px;
+        height: 520px;
+      }
+
+      .mobile-shell {
+        width: 260px;
+        height: 560px;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-slate-900" data-mode="dark">
+  <div
+    class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.12),_transparent_45%),radial-gradient(circle_at_20%_60%,_rgba(45,212,191,0.14),_transparent_45%),radial-gradient(circle_at_80%_80%,_rgba(56,189,248,0.16),_transparent_40%)]">
+  </div>
+
+  <main class="app-shell">
+    <section class="canvas-shell">
+      <div data-theme-root class="theme-root canvas-surface canvas-frame">
+        <div class="canvas-header">
+          <p class="canvas-kicker">Theme Canvas</p>
+        </div>
+        <a href="/" class="canvas-home">
+          Home
+          <span class="text-sm">-></span>
+        </a>
+        <div class="canvas-legend">
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-primary)"></span>
+            Primary
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-secondary)"></span>
+            Secondary
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-accent)"></span>
+            Accent
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-bg)"></span>
+            Background
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-text)"></span>
+            Text
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="token-dot" style="background: var(--color-muted)"></span>
+            Muted
+          </div>
+        </div>
+        <div data-canvas class="absolute inset-0 cursor-grab">
+          <div data-stage class="canvas-stage absolute left-0 top-0 flex">
+            <div class="flex items-center gap-16">
+              <div class="space-y-4">
+                <p class="frame-label text-[0.55rem] font-semibold uppercase text-white/60">Website</p>
+                <div class="frame-shell web-frame">
+                  <div class="web-screen">
+                    <div class="flex items-center justify-between border-b border-black/5 px-10 py-6">
+                      <div class="flex items-center gap-4">
+                        <span class="theme-pill px-3 py-1 text-xs font-semibold text-[var(--color-primary)]"
+                          style="background: color-mix(in srgb, var(--color-primary) 18%, transparent); border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);">Beta</span>
+                        <span class="theme-display text-lg font-semibold" data-text-target="brand">Marigold
+                          Studio</span>
+                      </div>
+                      <div class="flex items-center gap-5 text-xs font-semibold text-[var(--color-muted)]">
+                        <span>Studio</span>
+                        <span>Systems</span>
+                        <span>Pricing</span>
+                        <button class="theme-button" data-text-target="cta">Open theme</button>
+                      </div>
+                    </div>
+                    <div class="grid h-[calc(100%-92px)] grid-cols-[1.1fr,0.9fr] gap-8 px-10 py-10">
+                      <div class="flex flex-col justify-between">
+                        <div class="space-y-6">
+                          <span class="theme-chip ">New collection</span>
+                          <h2 class="theme-display text-3xl mt-3 leading-tight" data-text-target="headline">
+                            Calm launches for busy product teams
+                          </h2>
+                          <p class="text-sm text-[var(--color-muted)]" data-text-target="body">
+                            Design, ship, and measure with clarity. Keep every release in step with your brand tone.
+                          </p>
+                          <div class="flex flex-wrap mb-5 items-center gap-3">
+                            <button class="theme-button" data-text-target="cta">Open theme</button>
+                            <button class="theme-button secondary">View pricing</button>
+                          </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                          <div class="theme-card p-4">
+                            <p class="text-xs text-[var(--color-muted)]">Releases</p>
+                            <p class="theme-display text-xl">128</p>
+                            <p class="text-xs text-[var(--color-muted)]">Shipped this year</p>
+                          </div>
+                          <div class="theme-card p-4">
+                            <p class="text-xs text-[var(--color-muted)]">Uptime</p>
+                            <p class="theme-display text-xl">99.99%</p>
+                            <p class="text-xs text-[var(--color-muted)]">Trusted by teams</p>
+                          </div>
+                          <div class="theme-card p-4">
+                            <p class="text-xs text-[var(--color-muted)]">Notes</p>
+                            <p class="theme-display text-xl">24</p>
+                            <p class="text-xs text-[var(--color-muted)]">Insights weekly</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex h-full flex-col gap-4">
+                        <div class="theme-card flex-1 p-5">
+                          <p class="text-xs text-[var(--color-muted)]">Campaign preview</p>
+                          <h3 class="theme-display mt-3 text-xl">Ocean capsule</h3>
+                          <div class="mt-4 h-36 rounded-[18px]"
+                            style="background: linear-gradient(120deg, color-mix(in srgb, var(--color-primary) 45%, transparent), color-mix(in srgb, var(--color-muted) 45%, transparent));">
+                          </div>
+                          <p class="mt-4 text-sm text-[var(--color-muted)]">Track the lift across paid and owned
+                            channels.
+                          </p>
+                        </div>
+                        <div class="theme-card flex items-center justify-between p-5">
+                          <div>
+                            <p class="text-xs text-[var(--color-muted)]">Workflow status</p>
+                            <p class="theme-display mt-2 text-lg">Greenlighted</p>
+                          </div>
+                          <span class="theme-pill px-4 py-2 text-xs font-semibold text-[var(--color-primary)]"
+                            style="background: color-mix(in srgb, var(--color-primary) 18%, transparent)">Live</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <p class="frame-label text-[0.55rem] font-semibold uppercase text-white/60">Mobile</p>
+                <div class="mobile-shell">
+                  <div class="mobile-screen">
+                    <div class="mobile-notch"></div>
+                    <div class="flex h-full flex-col px-5 pb-6 pt-12">
+                      <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                        <span>9:41</span>
+                        <span>LTE 83%</span>
+                      </div>
+                      <div class="mt-6">
+                        <span class="theme-chip">Daily ritual</span>
+                        <h3 class="theme-display mt-4 text-2xl" data-text-target="mobileTitle">Daily focus</h3>
+                        <p class="mt-3 text-sm text-[var(--color-muted)]" data-text-target="mobileBody">
+                          Queue the top three rituals before the standup.
+                        </p>
+                      </div>
+                      <div class="mt-6 space-y-4">
+                        <div class="theme-card p-4">
+                          <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                            <span>Deep work</span>
+                            <span>40 min</span>
+                          </div>
+                          <p class="theme-display mt-2 text-lg">Ship the palette</p>
+                          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+                            <span class="token-dot" style="background: var(--color-primary)"></span>
+                            Primary focus
+                          </div>
+                        </div>
+                        <div class="theme-card p-4">
+                          <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
+                            <span>Sync</span>
+                            <span>Today</span>
+                          </div>
+                          <p class="theme-display mt-2 text-lg">Review handoff</p>
+                          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+                            <span class="token-dot" style="background: var(--color-primary)"></span>
+                            Primary focus
+                          </div>
+                        </div>
+                      </div>
+                      <button class="theme-button mt-auto w-full" data-text-target="cta">Open theme</button>
+                      <div
+                        class="mt-5 grid grid-cols-4 gap-2 text-[0.6rem] font-semibold uppercase text-[var(--color-muted)]">
+                        <span>Home</span>
+                        <span>Plans</span>
+                        <span>Inbox</span>
+                        <span>More</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="control-dock">
+      <button type="button" class="dock-toggle" data-dock-toggle aria-label="Toggle controls">
+        <span data-dock-icon>▼</span>
+      </button>
+      <div class="dock-inner">
+        <div class="dock-scroll">
+          <div class="dock-group dock-group--wide">
+            <div class="dock-header">
+              <p class="dock-title">Presets</p>
+              <div class="dock-actions">
+                <button type="button" data-mode-toggle class="dock-button">
+                  <span data-mode-label>Light mode</span>
+                </button>
+                <button type="button" data-reset class="dock-button">Reset</button>
+              </div>
+            </div>
+            <div class="dock-row">
+              <button type="button" data-preset="coral" class="dock-chip">Coral Tide</button>
+              <button type="button" data-preset="sage" class="dock-chip">Sage Clay</button>
+              <button type="button" data-preset="citrine" class="dock-chip">Citrine Ink</button>
+              <button type="button" data-preset="midnight" class="dock-chip">Midnight Lavender</button>
+              <button type="button" data-preset="moonlit" class="dock-chip">Moonlit Teal</button>
+              <button type="button" data-preset="warm" class="dock-chip">Warm Dawn</button>
+            </div>
+          </div>
+
+          <div class="dock-group dock-group--colors">
+            <p class="dock-title">Colors</p>
+            <div class="dock-grid dock-colors">
+              <label class="dock-color" for="color-bg">
+                <span class="dock-label">Background</span>
+                <span class="dock-color-row">
+                  <input id="color-bg" type="color" class="dock-color-input" data-color="bg" value="#f6efe8">
+                  <input type="text" class="dock-hex" data-color-text="bg" value="#f6efe8" spellcheck="false">
+                </span>
+              </label>
+              <label class="dock-color" for="color-primary">
+                <span class="dock-label">Primary</span>
+                <span class="dock-color-row">
+                  <input id="color-primary" type="color" class="dock-color-input" data-color="primary" value="#ff6a3d">
+                  <input type="text" class="dock-hex" data-color-text="primary" value="#ff6a3d" spellcheck="false">
+                </span>
+              </label>
+              <label class="dock-color" for="color-secondary">
+                <span class="dock-label">Secondary</span>
+                <span class="dock-color-row">
+                  <input id="color-secondary" type="color" class="dock-color-input" data-color="secondary"
+                    value="#fff9f4">
+                  <input type="text" class="dock-hex" data-color-text="secondary" value="#fff9f4" spellcheck="false">
+                </span>
+              </label>
+              <label class="dock-color" for="color-accent">
+                <span class="dock-label">Accent</span>
+                <span class="dock-color-row">
+                  <input id="color-accent" type="color" class="dock-color-input" data-color="accent" value="#247b7b">
+                  <input type="text" class="dock-hex" data-color-text="accent" value="#247b7b" spellcheck="false">
+                </span>
+              </label>
+              <label class="dock-color" for="color-text">
+                <span class="dock-label">Text</span>
+                <span class="dock-color-row">
+                  <input id="color-text" type="color" class="dock-color-input" data-color="text" value="#1f2a2d">
+                  <input type="text" class="dock-hex" data-color-text="text" value="#1f2a2d" spellcheck="false">
+                </span>
+              </label>
+              <label class="dock-color" for="color-muted">
+                <span class="dock-label">Muted text</span>
+                <span class="dock-color-row">
+                  <input id="color-muted" type="color" class="dock-color-input" data-color="muted" value="#6b7b80">
+                  <input type="text" class="dock-hex" data-color-text="muted" value="#6b7b80" spellcheck="false">
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="dock-group dock-group--wide">
+            <p class="dock-title">Typography</p>
+            <div class="dock-grid">
+              <label class="dock-field" for="font-display">
+                <span class="dock-label">Display</span>
+                <select id="font-display" class="dock-select" data-font="display">
+                  <option value="space" selected style="font-family: 'Space Grotesk', 'ui-sans-serif', 'system-ui';">
+                    Space Grotesk
+                  </option>
+                  <option value="poppins" style="font-family: 'Poppins', 'ui-sans-serif', 'system-ui';">Poppins</option>
+                  <option value="inter" style="font-family: 'Inter', 'ui-sans-serif', 'system-ui';">Inter</option>
+                  <option value="sora" style="font-family: 'Sora', 'ui-sans-serif', 'system-ui';">Sora</option>
+                  <option value="playfair" style="font-family: 'Playfair Display', 'ui-serif', 'serif';">
+                    Playfair Display
+                  </option>
+                  <option value="merriweather" style="font-family: 'Merriweather', 'ui-serif', 'serif';">
+                    Merriweather
+                  </option>
+                </select>
+              </label>
+              <label class="dock-field" for="font-body">
+                <span class="dock-label">Body</span>
+                <select id="font-body" class="dock-select" data-font="body">
+                  <option value="inter" selected style="font-family: 'Inter', 'ui-sans-serif', 'system-ui';">Inter
+                  </option>
+                  <option value="dm" style="font-family: 'DM Sans', 'ui-sans-serif', 'system-ui';">DM Sans</option>
+                  <option value="manrope" style="font-family: 'Manrope', 'ui-sans-serif', 'system-ui';">Manrope</option>
+                  <option value="poppins" style="font-family: 'Poppins', 'ui-sans-serif', 'system-ui';">Poppins</option>
+                  <option value="sora" style="font-family: 'Sora', 'ui-sans-serif', 'system-ui';">Sora</option>
+                  <option value="merriweather" style="font-family: 'Merriweather', 'ui-serif', 'serif';">
+                    Merriweather
+                  </option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="dock-group dock-group--wide dock-copy">
+            <p class="dock-title">Copy</p>
+            <div class="dock-grid dock-copy-grid">
+              <label class="dock-field" for="text-brand">
+                <span class="dock-label">Brand</span>
+                <input id="text-brand" class="dock-input" data-text-input="brand" value="Marigold Studio">
+              </label>
+              <label class="dock-field" for="text-headline">
+                <span class="dock-label">Headline</span>
+                <input id="text-headline" class="dock-input" data-text-input="headline"
+                  value="Calm launches for busy product teams">
+              </label>
+              <label class="dock-field" for="text-body">
+                <span class="dock-label">Body</span>
+                <input id="text-body" class="dock-input" data-text-input="body"
+                  value="Design, ship, and measure with clarity. Keep every release in step with your brand tone.">
+              </label>
+              <label class="dock-field" for="text-cta">
+                <span class="dock-label">Primary CTA</span>
+                <input id="text-cta" class="dock-input" data-text-input="cta" value="Open theme">
+              </label>
+              <label class="dock-field" for="text-mobile-title">
+                <span class="dock-label">Mobile title</span>
+                <input id="text-mobile-title" class="dock-input" data-text-input="mobileTitle" value="Daily focus">
+              </label>
+              <label class="dock-field" for="text-mobile-body">
+                <span class="dock-label">Mobile body</span>
+                <input id="text-mobile-body" class="dock-input" data-text-input="mobileBody"
+                  value="Queue the top three rituals before the standup.">
+              </label>
+            </div>
+          </div>
+
+          <div class="dock-group">
+            <div class="dock-header">
+              <p class="dock-title">Layout</p>
+              <span class="dock-value" data-radius-value>20px</span>
+            </div>
+            <div class="dock-row dock-stack">
+              <span class="dock-label">Corner radius</span>
+              <input class="dock-range" type="range" min="10" max="30" value="20" data-radius>
+            </div>
+          </div>
+
+          <div class="dock-group">
+            <div class="dock-header">
+              <p class="dock-title">Canvas</p>
+              <span class="dock-value" data-zoom-value>100%</span>
+            </div>
+            <div class="dock-row dock-stack">
+              <span class="dock-label">Zoom</span>
+              <input class="dock-range" type="range" min="0.6" max="1.3" step="0.02" value="1" data-zoom>
+            </div>
+            <button type="button" data-center class="dock-button dock-button-wide">Center view</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const themeRoot = document.querySelector("[data-theme-root]");
+    const colorInputs = document.querySelectorAll("[data-color]");
+    const colorTextInputs = document.querySelectorAll("[data-color-text]");
+    const fontInputs = document.querySelectorAll("[data-font]");
+    const textInputs = document.querySelectorAll("[data-text-input]");
+    const radiusInput = document.querySelector("[data-radius]");
+    const radiusValue = document.querySelector("[data-radius-value]");
+    const presetButtons = document.querySelectorAll("[data-preset]");
+    const resetButton = document.querySelector("[data-reset]");
+    const dockToggleButtons = document.querySelectorAll("[data-dock-toggle]");
+    const dockInner = document.querySelector(".dock-inner");
+    const dockToggle = document.querySelector(".dock-toggle");
+    const dockIcon = document.querySelector("[data-dock-icon]");
+    const modeToggle = document.querySelector("[data-mode-toggle]");
+    const modeLabel = document.querySelector("[data-mode-label]");
+    const zoomInput = document.querySelector("[data-zoom]");
+    const zoomValue = document.querySelector("[data-zoom-value]");
+    const centerButton = document.querySelector("[data-center]");
+    const canvas = document.querySelector("[data-canvas]");
+    const stage = document.querySelector("[data-stage]");
+    const bodyElement = document.body;
+
+    const fonts = {
+      inter: '"Inter", "ui-sans-serif", "system-ui"',
+      dm: '"DM Sans", "ui-sans-serif", "system-ui"',
+      manrope: '"Manrope", "ui-sans-serif", "system-ui"',
+      poppins: '"Poppins", "ui-sans-serif", "system-ui"',
+      space: '"Space Grotesk", "ui-sans-serif", "system-ui"',
+      sora: '"Sora", "ui-sans-serif", "system-ui"',
+      playfair: '"Playfair Display", "ui-serif", "serif"',
+      merriweather: '"Merriweather", "ui-serif", "serif"',
+    };
+
+    const presets = {
+      coral: {
+        colors: {
+          bg: "#f6efe8",
+          primary: "#ff6a3d",
+          secondary: "#fff9f4",
+          accent: "#247b7b",
+          text: "#1f2a2d",
+          muted: "#6b7b80",
+        },
+        fonts: { display: "space", body: "inter" },
+      },
+      sage: {
+        colors: {
+          bg: "#eff4ef",
+          primary: "#3f6f5b",
+          secondary: "#f7fbf6",
+          accent: "#a36c3d",
+          text: "#23312b",
+          muted: "#63706a",
+        },
+        fonts: { display: "sora", body: "inter" },
+      },
+      citrine: {
+        colors: {
+          bg: "#f6f1de",
+          primary: "#d07d2c",
+          secondary: "#fff9e9",
+          accent: "#3b4c7a",
+          text: "#2b2a2a",
+          muted: "#6b6660",
+        },
+        fonts: { display: "playfair", body: "dm" },
+      },
+      midnight: {
+        colors: {
+          bg: "#0b1020",
+          primary: "#6d5ef5",
+          secondary: "#121a33",
+          accent: "#ffb86b",
+          text: "#eef1ff",
+          muted: "#9aa3c7",
+        },
+        fonts: { display: "space", body: "inter" },
+      },
+      moonlit: {
+        colors: {
+          bg: "#07161b",
+          primary: "#2ec4b6",
+          secondary: "#0e2229",
+          accent: "#ffd166",
+          text: "#eafbff",
+          muted: "#89a8b3",
+        },
+        fonts: { display: "poppins", body: "inter" },
+      },
+      warm: {
+        colors: {
+          bg: "#0e0b14",
+          primary: "#ff7a90",
+          secondary: "#1a1327",
+          accent: "#7ee081",
+          text: "#fff3f6",
+          muted: "#c7b8c9",
+        },
+        fonts: { display: "merriweather", body: "dm" },
+      },
+    };
+
+    const defaultState = {
+      colors: {
+        bg: "#f6efe8",
+        primary: "#ff6a3d",
+        secondary: "#fff9f4",
+        accent: "#247b7b",
+        text: "#1f2a2d",
+        muted: "#6b7b80",
+      },
+      fonts: {
+        display: "space",
+        body: "inter",
+      },
+      radius: 20,
+      text: {
+        brand: "Marigold Studio",
+        headline: "Calm launches for busy product teams",
+        body: "Design, ship, and measure with clarity. Keep every release in step with your brand tone.",
+        cta: "Open theme",
+        mobileTitle: "Daily focus",
+        mobileBody: "Queue the top three rituals before the standup.",
+      },
+      zoom: 1,
+    };
+
+    const colorTextMap = {};
+    colorTextInputs.forEach((input) => {
+      const key = input.dataset.colorText;
+      if (key) {
+        colorTextMap[key] = input;
+      }
+    });
+
+    const fontSelectMap = {};
+    fontInputs.forEach((select) => {
+      const key = select.dataset.font;
+      if (key) {
+        fontSelectMap[key] = select;
+      }
+    });
+
+    const textTargets = {};
+    document.querySelectorAll("[data-text-target]").forEach((element) => {
+      const key = element.dataset.textTarget;
+      if (!key) {
+        return;
+      }
+      if (!textTargets[key]) {
+        textTargets[key] = [];
+      }
+      textTargets[key].push(element);
+    });
+
+    const applyColors = (colors) => {
+      if (!themeRoot) {
+        return;
+      }
+      Object.entries(colors).forEach(([key, value]) => {
+        themeRoot.style.setProperty(`--color-${key}`, value);
+      });
+    };
+
+    const applyFontSelection = (key) => {
+      if (!themeRoot) {
+        return;
+      }
+      const selected = fontSelectMap[key]?.value || "";
+      const fontValue = fonts[selected];
+      if (!fontValue) {
+        return;
+      }
+      themeRoot.style.setProperty(`--font-${key}`, fontValue);
+    };
+
+    const applyFontSelections = () => {
+      applyFontSelection("display");
+      applyFontSelection("body");
+    };
+
+    const applyRadius = (value) => {
+      if (!themeRoot) {
+        return;
+      }
+      themeRoot.style.setProperty("--radius", `${value}px`);
+      if (radiusValue) {
+        radiusValue.textContent = `${value}px`;
+      }
+    };
+
+    const applyText = (state) => {
+      Object.entries(state).forEach(([key, value]) => {
+        const nodes = textTargets[key] || [];
+        nodes.forEach((node) => {
+          node.textContent = value;
+        });
+      });
+    };
+
+    const syncInputValues = (state) => {
+      colorInputs.forEach((input) => {
+        const key = input.dataset.color;
+        if (key && state.colors[key]) {
+          input.value = state.colors[key];
+        }
+      });
+      colorTextInputs.forEach((input) => {
+        const key = input.dataset.colorText;
+        if (key && state.colors[key]) {
+          input.value = state.colors[key];
+        }
+      });
+      fontInputs.forEach((select) => {
+        const key = select.dataset.font;
+        if (key && state.fonts[key]) {
+          select.value = state.fonts[key];
+        }
+      });
+      textInputs.forEach((input) => {
+        const key = input.dataset.textInput;
+        if (key && state.text[key]) {
+          input.value = state.text[key];
+        }
+      });
+      if (radiusInput) {
+        radiusInput.value = String(state.radius);
+      }
+      if (zoomInput) {
+        zoomInput.value = String(state.zoom);
+      }
+    };
+
+    const normalizeHex = (value) => {
+      const trimmed = value.trim();
+      const match = trimmed.match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+      if (!match) {
+        return null;
+      }
+      const raw = match[1].toLowerCase();
+      if (raw.length === 3) {
+        return `#${raw.split("").map((part) => part + part).join("")}`;
+      }
+      return `#${raw}`;
+    };
+
+    const applyColorValue = (key, value) => {
+      if (!themeRoot) {
+        return;
+      }
+      themeRoot.style.setProperty(`--color-${key}`, value);
+      const textInput = colorTextMap[key];
+      if (textInput) {
+        textInput.value = value;
+      }
+      const colorInput = document.querySelector(`[data-color="${key}"]`);
+      if (colorInput) {
+        colorInput.value = value;
+      }
+    };
+
+    const applyPreset = (preset) => {
+      applyColors(preset.colors);
+      colorInputs.forEach((input) => {
+        const key = input.dataset.color;
+        if (key && preset.colors[key]) {
+          input.value = preset.colors[key];
+        }
+      });
+      colorTextInputs.forEach((input) => {
+        const key = input.dataset.colorText;
+        if (key && preset.colors[key]) {
+          input.value = preset.colors[key];
+        }
+      });
+      fontInputs.forEach((select) => {
+        const key = select.dataset.font;
+        if (key && preset.fonts[key]) {
+          select.value = preset.fonts[key];
+        }
+      });
+      applyFontSelections();
+    };
+
+    const applyState = (state) => {
+      syncInputValues(state);
+      applyColors(state.colors);
+      applyFontSelections();
+      applyRadius(state.radius);
+      applyText(state.text);
+      setZoom(state.zoom);
+    };
+
+    colorInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const key = input.dataset.color;
+        if (!key) {
+          return;
+        }
+        applyColorValue(key, input.value);
+      });
+    });
+
+    colorTextInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const key = input.dataset.colorText;
+        if (!key) {
+          return;
+        }
+        const normalized = normalizeHex(input.value);
+        if (!normalized) {
+          return;
+        }
+        applyColorValue(key, normalized);
+      });
+      input.addEventListener("blur", () => {
+        const normalized = normalizeHex(input.value);
+        const key = input.dataset.colorText;
+        if (normalized) {
+          input.value = normalized;
+          return;
+        }
+        if (!key) {
+          return;
+        }
+        const colorInput = document.querySelector(`[data-color="${key}"]`);
+        if (colorInput) {
+          input.value = colorInput.value;
+        }
+      });
+    });
+
+    fontInputs.forEach((select) => {
+      select.addEventListener("change", () => {
+        const key = select.dataset.font;
+        if (!key) {
+          return;
+        }
+        applyFontSelection(key);
+      });
+    });
+
+    textInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const key = input.dataset.textInput;
+        if (!key) {
+          return;
+        }
+        const nodes = textTargets[key] || [];
+        nodes.forEach((node) => {
+          node.textContent = input.value;
+        });
+      });
+    });
+
+    if (radiusInput) {
+      radiusInput.addEventListener("input", () => {
+        const value = Number(radiusInput.value);
+        applyRadius(value);
+      });
+    }
+
+    presetButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const presetKey = button.dataset.preset;
+        const preset = presetKey ? presets[presetKey] : null;
+        if (!preset) {
+          return;
+        }
+        applyPreset(preset);
+      });
+    });
+
+    resetButton?.addEventListener("click", () => {
+      applyState(defaultState);
+      centerStage();
+    });
+
+    const updateDockIcon = () => {
+      if (!dockIcon) {
+        return;
+      }
+      dockIcon.textContent = bodyElement.classList.contains("dock-hidden") ? "▲" : "▼";
+    };
+
+    dockToggleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        bodyElement.classList.toggle("dock-hidden");
+        updateDockIcon();
+      });
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+      if (bodyElement.classList.contains("dock-hidden")) {
+        return;
+      }
+      const target = event.target;
+      if (dockInner?.contains(target) || dockToggle?.contains(target)) {
+        return;
+      }
+      bodyElement.classList.add("dock-hidden");
+      updateDockIcon();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+      if (bodyElement.classList.contains("dock-hidden")) {
+        return;
+      }
+      bodyElement.classList.add("dock-hidden");
+      updateDockIcon();
+    });
+
+    const updateModeLabel = () => {
+      if (!modeLabel) {
+        return;
+      }
+      const isLight = bodyElement.dataset.mode === "light";
+      modeLabel.textContent = isLight ? "Dark mode" : "Light mode";
+    };
+
+    let userModeOverride = false;
+    const prefersLight = window.matchMedia?.("(prefers-color-scheme: light)");
+
+    const setMode = (mode, fromUser = false) => {
+      bodyElement.dataset.mode = mode;
+      if (fromUser) {
+        userModeOverride = true;
+      }
+      updateModeLabel();
+    };
+
+    if (prefersLight) {
+      setMode(prefersLight.matches ? "light" : "dark");
+      prefersLight.addEventListener("change", (event) => {
+        if (userModeOverride) {
+          return;
+        }
+        setMode(event.matches ? "light" : "dark");
+      });
+    }
+
+    modeToggle?.addEventListener("click", () => {
+      const nextMode = bodyElement.dataset.mode === "light" ? "dark" : "light";
+      setMode(nextMode, true);
+    });
+
+    let zoom = defaultState.zoom;
+    let offsetX = 0;
+    let offsetY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const updateStageTransform = () => {
+      if (!stage) {
+        return;
+      }
+      stage.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${zoom})`;
+      if (zoomValue) {
+        zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+      }
+    };
+
+    const setZoom = (value) => {
+      zoom = clamp(Number(value), 0.6, 1.3);
+      updateStageTransform();
+      if (zoomInput) {
+        zoomInput.value = String(zoom);
+      }
+    };
+
+    const centerStage = () => {
+      if (!canvas || !stage) {
+        return;
+      }
+      const bounds = canvas.getBoundingClientRect();
+      const stageWidth = stage.offsetWidth * zoom;
+      const stageHeight = stage.offsetHeight * zoom;
+      offsetX = (bounds.width - stageWidth) / 2;
+      offsetY = (bounds.height - stageHeight) / 2;
+      updateStageTransform();
+    };
+
+    zoomInput?.addEventListener("input", () => {
+      setZoom(zoomInput.value);
+    });
+
+    centerButton?.addEventListener("click", () => {
+      centerStage();
+    });
+
+    canvas?.addEventListener("pointerdown", (event) => {
+      isPanning = true;
+      canvas.setPointerCapture(event.pointerId);
+      startX = event.clientX - offsetX;
+      startY = event.clientY - offsetY;
+      canvas.classList.add("cursor-grabbing");
+    });
+
+    canvas?.addEventListener("pointermove", (event) => {
+      if (!isPanning) {
+        return;
+      }
+      offsetX = event.clientX - startX;
+      offsetY = event.clientY - startY;
+      updateStageTransform();
+    });
+
+    const stopPanning = () => {
+      isPanning = false;
+      canvas?.classList.remove("cursor-grabbing");
+    };
+
+    canvas?.addEventListener("pointerup", stopPanning);
+    canvas?.addEventListener("pointerleave", stopPanning);
+    canvas?.addEventListener("pointercancel", stopPanning);
+
+    canvas?.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      const direction = event.deltaY > 0 ? -0.04 : 0.04;
+      setZoom(zoom + direction);
+    }, { passive: false });
+
+    applyState(defaultState);
+    centerStage();
+    updateModeLabel();
+    updateDockIcon();
+
+    window.addEventListener("resize", () => {
+      centerStage();
+    });
+  </script>
+</body>
+
+</html>
