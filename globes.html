@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Globes - Design Candies</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CesiumJS -->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.138/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.138/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+  <!-- Globe.GL -->
+  <script src="https://unpkg.com/globe.gl"></script>
+
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.css" rel="stylesheet" />
+
+  <style>
+    .globe-container {
+      width: 100%;
+      height: 600px;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      position: relative;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .tab-button:hover {
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .tab-button.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    #cesiumContainer,
+    #globeglContainer,
+    #maplibreContainer {
+      width: 100%;
+      height: 100%;
+    }
+
+    .info-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: white;
+      z-index: 1000;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      color: white;
+      z-index: 1000;
+    }
+
+    .controls button {
+      background: rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .controls button:hover {
+      background: rgba(16, 185, 129, 0.5);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <div
+    class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.12),_transparent_50%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.12),_transparent_45%)] dark:bg-[radial-gradient(circle_at_top,_rgba(14,116,144,0.3),_transparent_45%),radial-gradient(circle_at_bottom,_rgba(94,234,212,0.18),_transparent_40%)]">
+  </div>
+
+  <main class="relative mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-12">
+    <header class="mb-8">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-300 hover:gap-3 transition-all">
+        <span>←</span> Back to gallery
+      </a>
+      <h1 class="mt-6 font-display text-4xl font-semibold leading-tight sm:text-5xl">
+        3D Globe Experiments
+      </h1>
+      <p class="mt-4 font-body text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
+        Comparing three different WebGL globe libraries: CesiumJS (advanced features), Globe.GL (lightweight), and MapLibre GL (Leaflet-like). Click on each globe to add markers.
+      </p>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="flex gap-4 mb-6 flex-wrap">
+      <button class="tab-button active" data-tab="cesium" onclick="switchTab('cesium')">
+        CesiumJS
+        <span class="text-xs opacity-70 ml-2">Advanced</span>
+      </button>
+      <button class="tab-button" data-tab="globegl" onclick="switchTab('globegl')">
+        Globe.GL
+        <span class="text-xs opacity-70 ml-2">Lightweight</span>
+      </button>
+      <button class="tab-button" data-tab="maplibre" onclick="switchTab('maplibre')">
+        MapLibre GL
+        <span class="text-xs opacity-70 ml-2">Leaflet-like</span>
+      </button>
+    </div>
+
+    <!-- CesiumJS Globe -->
+    <div id="cesium-section" class="globe-section">
+      <div class="globe-container">
+        <div class="info-badge">CesiumJS - Click to add markers</div>
+        <div class="controls">
+          <button onclick="resetCesium()">Reset View</button>
+          <button onclick="clearCesiumMarkers()">Clear Markers</button>
+        </div>
+        <div id="cesiumContainer"></div>
+      </div>
+      <div class="mt-6 p-6 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+        <h3 class="font-display text-xl font-semibold mb-3">About CesiumJS</h3>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300">
+          High-precision 3D globe with advanced features like terrain, lighting, and extensive customization.
+          Best for complex visualizations and professional applications. Supports dynamic entities, 3D models, and time-based animations.
+        </p>
+      </div>
+    </div>
+
+    <!-- Globe.GL -->
+    <div id="globegl-section" class="globe-section" style="display: none;">
+      <div class="globe-container">
+        <div class="info-badge">Globe.GL - Click to add markers</div>
+        <div class="controls">
+          <button onclick="resetGlobeGL()">Reset View</button>
+          <button onclick="clearGlobeGLMarkers()">Clear Markers</button>
+        </div>
+        <div id="globeglContainer"></div>
+      </div>
+      <div class="mt-6 p-6 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+        <h3 class="font-display text-xl font-semibold mb-3">About Globe.GL</h3>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300">
+          Lightweight Three.js wrapper perfect for data visualization. Quick setup, smooth performance, and easy customization.
+          Ideal for games and interactive web applications. Supports points, arcs, polygons, and custom HTML labels.
+        </p>
+      </div>
+    </div>
+
+    <!-- MapLibre GL -->
+    <div id="maplibre-section" class="globe-section" style="display: none;">
+      <div class="globe-container">
+        <div class="info-badge">MapLibre GL - Click to add markers</div>
+        <div class="controls">
+          <button onclick="resetMapLibre()">Reset View</button>
+          <button onclick="clearMapLibreMarkers()">Clear Markers</button>
+        </div>
+        <div id="maplibreContainer"></div>
+      </div>
+      <div class="mt-6 p-6 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+        <h3 class="font-display text-xl font-semibold mb-3">About MapLibre GL</h3>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300">
+          Open-source fork of Mapbox GL JS with globe projection support. Familiar API for Leaflet users, vector-based rendering,
+          and smooth zooming. Great for migrating from 2D to 3D maps while keeping similar code structure.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    // Sample cities for initial markers
+    const sampleCities = [
+      { name: 'New York', lat: 40.7128, lng: -74.0060 },
+      { name: 'London', lat: 51.5074, lng: -0.1278 },
+      { name: 'Tokyo', lat: 35.6762, lng: 139.6503 },
+      { name: 'Sydney', lat: -33.8688, lng: 151.2093 },
+      { name: 'Rio de Janeiro', lat: -22.9068, lng: -43.1729 }
+    ];
+
+    // ===== CESIUM =====
+    let cesiumViewer;
+    let cesiumMarkers = [];
+
+    function initCesium() {
+      // Set Cesium Ion access token (using default public token)
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5N2UyMjcwOS00MDY1LTQxYjEtYjZjMy00YTU0ZTg5MmViYWQiLCJpZCI6ODAzMDYsImlhdCI6MTY0Mjc0ODI2MX0.dkwAL1CcljUV7NA7fDbhXXnmyZQU_c-G5zRx8PtEcxE';
+
+      cesiumViewer = new Cesium.Viewer('cesiumContainer', {
+        imageryProvider: Cesium.IonImageryProvider.fromAssetId(2),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+        animation: false,
+        timeline: false,
+        fullscreenButton: false,
+        vrButton: false,
+        infoBox: true,
+        selectionIndicator: false
+      });
+
+      cesiumViewer.scene.globe.enableLighting = true;
+
+      // Add sample cities
+      sampleCities.forEach(city => addCesiumMarker(city.lng, city.lat, city.name));
+
+      // Click handler for adding markers
+      const handler = new Cesium.ScreenSpaceEventHandler(cesiumViewer.scene.canvas);
+      handler.setInputAction((click) => {
+        const cartesian = cesiumViewer.camera.pickEllipsoid(click.position, cesiumViewer.scene.globe.ellipsoid);
+        if (cartesian) {
+          const cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+          const lng = Cesium.Math.toDegrees(cartographic.longitude);
+          const lat = Cesium.Math.toDegrees(cartographic.latitude);
+          addCesiumMarker(lng, lat, 'Custom Marker');
+        }
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    }
+
+    function addCesiumMarker(lng, lat, label) {
+      const entity = cesiumViewer.entities.add({
+        position: Cesium.Cartesian3.fromDegrees(lng, lat),
+        point: {
+          pixelSize: 10,
+          color: Cesium.Color.CYAN,
+          outlineColor: Cesium.Color.WHITE,
+          outlineWidth: 2
+        },
+        label: {
+          text: label,
+          font: '14pt sans-serif',
+          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+          outlineWidth: 2,
+          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+          pixelOffset: new Cesium.Cartesian2(0, -12),
+          fillColor: Cesium.Color.WHITE,
+          outlineColor: Cesium.Color.BLACK
+        }
+      });
+      cesiumMarkers.push(entity);
+    }
+
+    window.resetCesium = () => {
+      cesiumViewer.camera.flyHome(0);
+    };
+
+    window.clearCesiumMarkers = () => {
+      cesiumMarkers.forEach(marker => cesiumViewer.entities.remove(marker));
+      cesiumMarkers = [];
+    };
+
+    // ===== GLOBE.GL =====
+    let globegl;
+    let globeglMarkers = [];
+
+    function initGlobeGL() {
+      globegl = Globe()
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .pointAltitude(0.01)
+        .pointColor(() => '#00FFFF')
+        .pointRadius(0.4)
+        .pointLabel('name')
+        (document.getElementById('globeglContainer'));
+
+      // Add sample cities
+      globeglMarkers = sampleCities.map(city => ({
+        lat: city.lat,
+        lng: city.lng,
+        name: city.name,
+        size: 1
+      }));
+      globegl.pointsData(globeglMarkers);
+
+      // Click handler
+      globegl.onGlobeClick((coords) => {
+        if (coords.lat && coords.lng) {
+          globeglMarkers.push({
+            lat: coords.lat,
+            lng: coords.lng,
+            name: 'Custom Marker',
+            size: 1
+          });
+          globegl.pointsData(globeglMarkers);
+        }
+      });
+    }
+
+    window.resetGlobeGL = () => {
+      globegl.pointOfView({ lat: 0, lng: 0, altitude: 2.5 }, 1000);
+    };
+
+    window.clearGlobeGLMarkers = () => {
+      globeglMarkers = [];
+      globegl.pointsData(globeglMarkers);
+    };
+
+    // ===== MAPLIBRE GL =====
+    let maplibre;
+    let maplibreMarkers = [];
+
+    async function initMapLibre() {
+      // Fetch the style and modify it to include globe projection
+      const response = await fetch('https://demotiles.maplibre.org/style.json');
+      const style = await response.json();
+
+      // Add globe projection to the style
+      style.projection = { type: 'globe' };
+
+      maplibre = new maplibregl.Map({
+        container: 'maplibreContainer',
+        style: style,
+        center: [0, 20],
+        zoom: 1.5
+      });
+
+      maplibre.on('load', () => {
+        // Set fog if the method is available (some versions may not support it)
+        if (typeof maplibre.setFog === 'function') {
+          try {
+            maplibre.setFog({
+              color: 'rgb(186, 210, 235)',
+              'high-color': 'rgb(36, 92, 223)',
+              'horizon-blend': 0.02,
+              'space-color': 'rgb(11, 11, 25)',
+              'star-intensity': 0.6
+            });
+          } catch (e) {
+            console.log('Fog not supported in this version of MapLibre GL');
+          }
+        }
+
+        // Add sample cities
+        sampleCities.forEach(city => addMapLibreMarker(city.lng, city.lat, city.name));
+
+        // Click handler
+        maplibre.on('click', (e) => {
+          addMapLibreMarker(e.lngLat.lng, e.lngLat.lat, 'Custom Marker');
+        });
+      });
+    }
+
+    function addMapLibreMarker(lng, lat, label) {
+      const marker = new maplibregl.Marker({ color: '#00FFFF' })
+        .setLngLat([lng, lat])
+        .setPopup(new maplibregl.Popup().setHTML(`<strong>${label}</strong>`))
+        .addTo(maplibre);
+      maplibreMarkers.push(marker);
+    }
+
+    window.resetMapLibre = () => {
+      maplibre.flyTo({ center: [0, 0], zoom: 1 });
+    };
+
+    window.clearMapLibreMarkers = () => {
+      maplibreMarkers.forEach(marker => marker.remove());
+      maplibreMarkers = [];
+    };
+
+    // ===== TAB SWITCHING =====
+    window.switchTab = (tab) => {
+      // Update button states
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+      // Hide all sections
+      document.querySelectorAll('.globe-section').forEach(section => {
+        section.style.display = 'none';
+      });
+
+      // Show selected section
+      document.getElementById(`${tab}-section`).style.display = 'block';
+
+      // Initialize globe if not already done
+      if (tab === 'cesium' && !cesiumViewer) {
+        initCesium();
+      } else if (tab === 'globegl' && !globegl) {
+        initGlobeGL();
+      } else if (tab === 'maplibre' && !maplibre) {
+        initMapLibre();
+      }
+    };
+
+    // Initialize first globe on page load
+    initCesium();
+  </script>
+</body>
+
+</html>
