@@ -96,6 +96,105 @@
     .controls button:hover {
       background: rgba(16, 185, 129, 0.5);
     }
+
+    .controls select {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      color: white;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .controls select:focus {
+      outline: none;
+      border-color: rgba(16, 185, 129, 0.7);
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .controls label {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .settings-panel {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      color: white;
+      z-index: 1000;
+      max-width: 300px;
+    }
+
+    .settings-panel h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      opacity: 0.9;
+    }
+
+    .setting-item {
+      margin-bottom: 0.75rem;
+    }
+
+    .setting-item label {
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+      opacity: 0.8;
+    }
+
+    .setting-item input[type="range"] {
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .setting-item input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgb(16, 185, 129);
+      cursor: pointer;
+    }
+
+    .setting-item input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgb(16, 185, 129);
+      cursor: pointer;
+      border: none;
+    }
+
+    .setting-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .setting-value {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-left: 0.5rem;
+    }
   </style>
 </head>
 
@@ -113,7 +212,7 @@
         3D Globe Experiments
       </h1>
       <p class="mt-4 font-body text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
-        Comparing three different WebGL globe libraries: CesiumJS (advanced features), Globe.GL (lightweight), and MapLibre GL (Leaflet-like). Click on each globe to add markers.
+        Comparing three different WebGL globe libraries: CesiumJS (advanced features), Globe.GL (lightweight), and MapLibre GL (Leaflet-like). Click on each globe to add markers, and use the dropdowns to switch between different tile providers and visual styles. Labels indicate licensing: "Free" means unlimited commercial use, "Free tier" means limited free usage with paid plans available, "Demo only" means not for production.
       </p>
     </header>
 
@@ -137,9 +236,43 @@
     <div id="cesium-section" class="globe-section">
       <div class="globe-container">
         <div class="info-badge">CesiumJS - Click to add markers</div>
+        <div class="settings-panel">
+          <h4>Globe Settings</h4>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="cesium-lighting" onchange="toggleCesiumLighting(this.checked)" checked>
+              Enable Lighting
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="cesium-atmosphere" onchange="toggleCesiumAtmosphere(this.checked)" checked>
+              Show Atmosphere
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Animation Speed
+              <span class="setting-value" id="cesium-speed-value">1.0x</span>
+            </label>
+            <input type="range" id="cesium-speed" min="0.1" max="3" step="0.1" value="1" oninput="changeCesiumSpeed(this.value)" autocomplete="off">
+          </div>
+        </div>
         <div class="controls">
-          <button onclick="resetCesium()">Reset View</button>
-          <button onclick="clearCesiumMarkers()">Clear Markers</button>
+          <div class="controls-row">
+            <label>Imagery:</label>
+            <select id="cesium-provider" onchange="changeCesiumProvider(this.value)">
+              <option value="ion">Cesium Ion Satellite (Free tier)</option>
+              <option value="bing">Bing Maps Aerial (Free tier w/ key)</option>
+              <option value="osm">OpenStreetMap (Free)</option>
+              <option value="arcgis">ArcGIS World Imagery (Free)</option>
+              <option value="natural-earth">Natural Earth II (Free)</option>
+            </select>
+          </div>
+          <div class="controls-row">
+            <button onclick="resetCesium()">Reset View</button>
+            <button onclick="clearCesiumMarkers()">Clear Markers</button>
+          </div>
         </div>
         <div id="cesiumContainer"></div>
       </div>
@@ -149,6 +282,10 @@
           High-precision 3D globe with advanced features like terrain, lighting, and extensive customization.
           Best for complex visualizations and professional applications. Supports dynamic entities, 3D models, and time-based animations.
         </p>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300 mt-3">
+          <strong>Try different imagery providers:</strong> Most have free tiers but may require API keys for production.
+          Cesium supports 50+ providers including Mapbox, Stamen, custom tile servers, and more.
+        </p>
       </div>
     </div>
 
@@ -156,9 +293,46 @@
     <div id="globegl-section" class="globe-section" style="display: none;">
       <div class="globe-container">
         <div class="info-badge">Globe.GL - Click to add markers</div>
+        <div class="settings-panel">
+          <h4>Globe Settings</h4>
+          <div class="setting-item">
+            <label>
+              Point Size
+              <span class="setting-value" id="globegl-point-value">0.4</span>
+            </label>
+            <input type="range" id="globegl-point" min="0.1" max="2" step="0.1" value="0.4" oninput="changeGlobeGLPointSize(this.value)" autocomplete="off">
+          </div>
+          <div class="setting-item">
+            <label>
+              Point Altitude
+              <span class="setting-value" id="globegl-altitude-value">0.01</span>
+            </label>
+            <input type="range" id="globegl-altitude" min="0" max="0.1" step="0.01" value="0.01" oninput="changeGlobeGLAltitude(this.value)" autocomplete="off">
+          </div>
+          <div class="setting-item">
+            <label>
+              Rotation Speed
+              <span class="setting-value" id="globegl-rotation-value">0.0</span>
+            </label>
+            <input type="range" id="globegl-rotation" min="0" max="1" step="0.1" value="0" oninput="changeGlobeGLRotation(this.value)" autocomplete="off">
+          </div>
+        </div>
         <div class="controls">
-          <button onclick="resetGlobeGL()">Reset View</button>
-          <button onclick="clearGlobeGLMarkers()">Clear Markers</button>
+          <div class="controls-row">
+            <label>Texture:</label>
+            <select id="globegl-texture" onchange="changeGlobeGLTexture(this.value)">
+              <option value="blue-marble">Earth Blue Marble (Free)</option>
+              <option value="dark">Earth Night (Free)</option>
+              <option value="topology">Earth Topology (Free)</option>
+              <option value="bathymetry">Earth Water Color (Free)</option>
+              <option value="black-marble">Black Marble - Night Lights (Free)</option>
+              <option value="natural-earth">Natural Earth (Free)</option>
+            </select>
+          </div>
+          <div class="controls-row">
+            <button onclick="resetGlobeGL()">Reset View</button>
+            <button onclick="clearGlobeGLMarkers()">Clear Markers</button>
+          </div>
         </div>
         <div id="globeglContainer"></div>
       </div>
@@ -168,6 +342,10 @@
           Lightweight Three.js wrapper perfect for data visualization. Quick setup, smooth performance, and easy customization.
           Ideal for games and interactive web applications. Supports points, arcs, polygons, and custom HTML labels.
         </p>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300 mt-3">
+          <strong>Try different textures:</strong> All textures shown are free. Globe.GL can use any image URL as a texture,
+          including custom artwork, NASA imagery, or your own designs - unlimited possibilities!
+        </p>
       </div>
     </div>
 
@@ -175,9 +353,45 @@
     <div id="maplibre-section" class="globe-section" style="display: none;">
       <div class="globe-container">
         <div class="info-badge">MapLibre GL - Click to add markers</div>
+        <div class="settings-panel">
+          <h4>Globe Settings</h4>
+          <div class="setting-item">
+            <label>
+              Zoom Level
+              <span class="setting-value" id="maplibre-zoom-value">1.5</span>
+            </label>
+            <input type="range" id="maplibre-zoom" min="0.5" max="3" step="0.1" value="1.5" oninput="changeMapLibreZoom(this.value)" autocomplete="off">
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="maplibre-fog" onchange="toggleMapLibreFog(this.checked)">
+              Enable Fog
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Pitch (Tilt)
+              <span class="setting-value" id="maplibre-pitch-value">0°</span>
+            </label>
+            <input type="range" id="maplibre-pitch" min="0" max="60" step="5" value="0" oninput="changeMapLibrePitch(this.value)" autocomplete="off">
+          </div>
+        </div>
         <div class="controls">
-          <button onclick="resetMapLibre()">Reset View</button>
-          <button onclick="clearMapLibreMarkers()">Clear Markers</button>
+          <div class="controls-row">
+            <label>Style:</label>
+            <select id="maplibre-style" onchange="changeMapLibreStyle(this.value)">
+              <option value="demotiles">MapLibre Demo (Demo only)</option>
+              <option value="osm-bright">OSM Bright (Free)</option>
+              <option value="dark-matter">Dark Matter (Free)</option>
+              <option value="positron">Positron Light (Free)</option>
+              <option value="liberty">OSM Liberty (Free)</option>
+              <option value="maptiler-basic">MapTiler Basic (Free tier)</option>
+            </select>
+          </div>
+          <div class="controls-row">
+            <button onclick="resetMapLibre()">Reset View</button>
+            <button onclick="clearMapLibreMarkers()">Clear Markers</button>
+          </div>
         </div>
         <div id="maplibreContainer"></div>
       </div>
@@ -186,6 +400,10 @@
         <p class="font-body text-sm text-slate-600 dark:text-slate-300">
           Open-source fork of Mapbox GL JS with globe projection support. Familiar API for Leaflet users, vector-based rendering,
           and smooth zooming. Great for migrating from 2D to 3D maps while keeping similar code structure.
+        </p>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300 mt-3">
+          <strong>Try different styles:</strong> OpenFreeMap styles are free for commercial use. MapTiler offers free tier + paid plans.
+          MapLibre works with Maptiler, Stadia Maps, self-hosted tiles, and any Mapbox-style JSON provider.
         </p>
       </div>
     </div>
@@ -274,6 +492,75 @@
       cesiumMarkers = [];
     };
 
+    window.changeCesiumProvider = async (provider) => {
+      const layers = cesiumViewer.imageryLayers;
+      layers.removeAll();
+
+      let providerPromise;
+
+      switch(provider) {
+        case 'ion':
+          providerPromise = Cesium.IonImageryProvider.fromAssetId(2);
+          break;
+        case 'bing':
+          providerPromise = Cesium.BingMapsImageryProvider.fromUrl(
+            'https://dev.virtualearth.net',
+            {
+              key: 'AuhiCJHlGzhg93IqUH_oCpl_-ZUrIE6SPftlyGYUvr9Amx5nzA-WqGcPquyFZl4L',
+              mapStyle: Cesium.BingMapsStyle.AERIAL
+            }
+          );
+          break;
+        case 'osm':
+          providerPromise = Promise.resolve(new Cesium.OpenStreetMapImageryProvider({
+            url: 'https://tile.openstreetmap.org/'
+          }));
+          break;
+        case 'arcgis':
+          providerPromise = Cesium.ArcGisMapServerImageryProvider.fromUrl(
+            'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+          );
+          break;
+        case 'natural-earth':
+          providerPromise = Cesium.IonImageryProvider.fromAssetId(3845);
+          break;
+      }
+
+      try {
+        const imageryProvider = await providerPromise;
+        layers.addImageryProvider(imageryProvider);
+      } catch (error) {
+        console.error('Failed to load imagery provider:', error);
+      }
+    };
+
+    window.toggleCesiumLighting = (enabled) => {
+      if (cesiumViewer) {
+        cesiumViewer.scene.globe.enableLighting = enabled;
+      }
+    };
+
+    window.toggleCesiumAtmosphere = (enabled) => {
+      if (cesiumViewer) {
+        cesiumViewer.scene.skyAtmosphere.show = enabled;
+      }
+    };
+
+    window.changeCesiumSpeed = (value) => {
+      if (cesiumViewer) {
+        cesiumViewer.clock.multiplier = parseFloat(value);
+        document.getElementById('cesium-speed-value').textContent = value + 'x';
+      }
+    };
+
+    function cleanupCesium() {
+      if (cesiumViewer) {
+        cesiumViewer.destroy();
+        cesiumViewer = null;
+        cesiumMarkers = [];
+      }
+    }
+
     // ===== GLOBE.GL =====
     let globegl;
     let globeglMarkers = [];
@@ -319,6 +606,66 @@
       globeglMarkers = [];
       globegl.pointsData(globeglMarkers);
     };
+
+    window.changeGlobeGLTexture = (texture) => {
+      const textures = {
+        'blue-marble': '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+        'dark': '//unpkg.com/three-globe/example/img/earth-dark.jpg',
+        'topology': '//unpkg.com/three-globe/example/img/earth-topology.png',
+        'bathymetry': '//unpkg.com/three-globe/example/img/earth-water.png',
+        'black-marble': '//unpkg.com/three-globe/example/img/earth-night.jpg',
+        'natural-earth': '//unpkg.com/three-globe/example/img/earth-day.jpg'
+      };
+
+      globegl.globeImageUrl(textures[texture]);
+    };
+
+    let globeglRotationInterval;
+
+    window.changeGlobeGLPointSize = (value) => {
+      if (globegl) {
+        globegl.pointRadius(parseFloat(value));
+        document.getElementById('globegl-point-value').textContent = value;
+      }
+    };
+
+    window.changeGlobeGLAltitude = (value) => {
+      if (globegl) {
+        globegl.pointAltitude(parseFloat(value));
+        document.getElementById('globegl-altitude-value').textContent = value;
+      }
+    };
+
+    window.changeGlobeGLRotation = (value) => {
+      const speed = parseFloat(value);
+      document.getElementById('globegl-rotation-value').textContent = value;
+
+      if (globeglRotationInterval) {
+        clearInterval(globeglRotationInterval);
+        globeglRotationInterval = null;
+      }
+
+      if (speed > 0 && globegl) {
+        globeglRotationInterval = setInterval(() => {
+          const currentView = globegl.pointOfView();
+          globegl.pointOfView({ lng: currentView.lng + speed * 0.5 });
+        }, 50);
+      }
+    };
+
+    function cleanupGlobeGL() {
+      if (globeglRotationInterval) {
+        clearInterval(globeglRotationInterval);
+        globeglRotationInterval = null;
+      }
+      if (globegl) {
+        // Globe.GL doesn't have a destroy method, just clear the container
+        const container = document.getElementById('globeglContainer');
+        container.innerHTML = '';
+        globegl = null;
+        globeglMarkers = [];
+      }
+    }
 
     // ===== MAPLIBRE GL =====
     let maplibre;
@@ -382,8 +729,104 @@
       maplibreMarkers = [];
     };
 
+    window.changeMapLibreStyle = async (styleType) => {
+      const styles = {
+        'demotiles': 'https://demotiles.maplibre.org/style.json',
+        'osm-bright': 'https://tiles.openfreemap.org/styles/bright',
+        'dark-matter': 'https://tiles.openfreemap.org/styles/dark',
+        'positron': 'https://tiles.openfreemap.org/styles/positron',
+        'liberty': 'https://tiles.openfreemap.org/styles/liberty',
+        'maptiler-basic': 'https://api.maptiler.com/maps/basic-v2/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      };
+
+      const response = await fetch(styles[styleType]);
+      const style = await response.json();
+      style.projection = { type: 'globe' };
+
+      // Save current markers
+      const savedMarkers = maplibreMarkers.map(m => ({
+        lngLat: m.getLngLat(),
+        popup: m.getPopup()
+      }));
+
+      // Clear old markers
+      maplibreMarkers.forEach(marker => marker.remove());
+      maplibreMarkers = [];
+
+      // Set new style
+      maplibre.setStyle(style);
+
+      // Restore markers after style loads
+      maplibre.once('styledata', () => {
+        savedMarkers.forEach(saved => {
+          const marker = new maplibregl.Marker({ color: '#00FFFF' })
+            .setLngLat(saved.lngLat)
+            .setPopup(saved.popup)
+            .addTo(maplibre);
+          maplibreMarkers.push(marker);
+        });
+      });
+    };
+
+    window.changeMapLibreZoom = (value) => {
+      if (maplibre) {
+        maplibre.setZoom(parseFloat(value));
+        document.getElementById('maplibre-zoom-value').textContent = value;
+      }
+    };
+
+    window.toggleMapLibreFog = (enabled) => {
+      if (maplibre && typeof maplibre.setFog === 'function') {
+        try {
+          if (enabled) {
+            maplibre.setFog({
+              color: 'rgb(186, 210, 235)',
+              'high-color': 'rgb(36, 92, 223)',
+              'horizon-blend': 0.02,
+              'space-color': 'rgb(11, 11, 25)',
+              'star-intensity': 0.6
+            });
+          } else {
+            maplibre.setFog(null);
+          }
+        } catch (e) {
+          console.log('Fog not supported');
+        }
+      }
+    };
+
+    window.changeMapLibrePitch = (value) => {
+      if (maplibre) {
+        maplibre.setPitch(parseFloat(value));
+        document.getElementById('maplibre-pitch-value').textContent = value + '°';
+      }
+    };
+
+    function cleanupMapLibre() {
+      if (maplibre) {
+        maplibreMarkers.forEach(marker => marker.remove());
+        maplibreMarkers = [];
+        maplibre.remove();
+        maplibre = null;
+      }
+    }
+
     // ===== TAB SWITCHING =====
+    let currentTab = 'cesium';
+
     window.switchTab = (tab) => {
+      // Clean up previous globe to free resources
+      if (currentTab !== tab) {
+        if (currentTab === 'cesium') {
+          cleanupCesium();
+        } else if (currentTab === 'globegl') {
+          cleanupGlobeGL();
+        } else if (currentTab === 'maplibre') {
+          cleanupMapLibre();
+        }
+        currentTab = tab;
+      }
+
       // Update button states
       document.querySelectorAll('.tab-button').forEach(btn => {
         btn.classList.remove('active');
@@ -398,12 +841,12 @@
       // Show selected section
       document.getElementById(`${tab}-section`).style.display = 'block';
 
-      // Initialize globe if not already done
-      if (tab === 'cesium' && !cesiumViewer) {
+      // Initialize new globe
+      if (tab === 'cesium') {
         initCesium();
-      } else if (tab === 'globegl' && !globegl) {
+      } else if (tab === 'globegl') {
         initGlobeGL();
-      } else if (tab === 'maplibre' && !maplibre) {
+      } else if (tab === 'maplibre') {
         initMapLibre();
       }
     };
