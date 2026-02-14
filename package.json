@@ -21,6 +21,7 @@
     "cesium": "^1.138.0",
     "deck.gl": "^9.2.6",
     "globe.gl": "^2.45.0",
-    "maplibre-gl": "^5.17.0"
+    "maplibre-gl": "^5.17.0",
+    "tailwindcss": "^4.1.18"
   }
 }
