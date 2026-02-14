@@ -178,6 +178,141 @@
     </div>
   </dialog>
 
+  <!-- Editor Modal -->
+  <dialog id="editor-dialog"
+    class="w-[min(92vw,500px)] max-h-[90vh] overflow-hidden overscroll-y-contain rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+    <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Edit Sound</p>
+        <h3 id="editor-dialog-title" class="font-display text-xl font-semibold">Sound Name</h3>
+      </div>
+      <button type="button" data-dialog-close
+        class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+        Close
+      </button>
+    </div>
+    <div class="overflow-y-auto px-6 py-6" style="max-height: calc(90vh - 80px);">
+      <!-- Visualization -->
+      <div class="mb-5">
+        <div class="relative overflow-hidden rounded-xl bg-slate-900 dark:bg-slate-800">
+          <canvas id="waveform-canvas" class="h-20 w-full"></canvas>
+          <div id="waveform-idle" class="pointer-events-none absolute inset-0 flex items-center justify-center text-xs text-slate-500 transition-opacity duration-200">
+            Adjust parameters to preview
+          </div>
+        </div>
+      </div>
+
+      <!-- Parts Timeline -->
+      <div class="mb-5">
+        <div class="mb-2 flex items-center justify-between">
+          <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Parts</label>
+          <button id="add-part-btn" type="button"
+            class="inline-flex items-center gap-1 rounded-lg border border-slate-200/80 bg-white px-2 py-1 text-xs font-medium text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add
+          </button>
+        </div>
+        <div id="parts-container" class="space-y-2"></div>
+      </div>
+
+      <!-- Selected Part Controls -->
+      <div id="part-controls" class="rounded-xl border border-slate-200/80 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/5">
+        <div class="mb-4 flex items-center justify-between">
+          <span class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Part <span id="selected-part-num">1</span></span>
+          <button id="delete-part-btn" type="button"
+            class="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400">Delete</button>
+        </div>
+
+        <!-- Delay -->
+        <div class="mb-4">
+          <div class="mb-1 flex items-center justify-between">
+            <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Delay</label>
+            <span id="delay-value" class="text-xs tabular-nums text-slate-500">0 ms</span>
+          </div>
+          <input type="range" id="part-delay" min="0" max="500" value="0" step="10" autocomplete="off"
+            class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-indigo-500 dark:bg-slate-700">
+        </div>
+
+        <!-- Waveform -->
+        <div class="mb-4">
+          <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">Waveform</label>
+          <div class="grid grid-cols-4 gap-1">
+            <button type="button" data-waveform="sine"
+              class="waveform-btn rounded border border-slate-200/80 bg-white px-2 py-1 text-[10px] font-medium transition hover:border-indigo-400 dark:border-white/10 dark:bg-white/5">
+              Sine
+            </button>
+            <button type="button" data-waveform="square"
+              class="waveform-btn rounded border border-slate-200/80 bg-white px-2 py-1 text-[10px] font-medium transition hover:border-indigo-400 dark:border-white/10 dark:bg-white/5">
+              Square
+            </button>
+            <button type="button" data-waveform="triangle"
+              class="waveform-btn rounded border border-slate-200/80 bg-white px-2 py-1 text-[10px] font-medium transition hover:border-indigo-400 dark:border-white/10 dark:bg-white/5">
+              Triangle
+            </button>
+            <button type="button" data-waveform="sawtooth"
+              class="waveform-btn rounded border border-slate-200/80 bg-white px-2 py-1 text-[10px] font-medium transition hover:border-indigo-400 dark:border-white/10 dark:bg-white/5">
+              Saw
+            </button>
+          </div>
+        </div>
+
+        <!-- Frequency -->
+        <div class="mb-4 grid grid-cols-2 gap-3">
+          <div>
+            <div class="mb-1 flex items-center justify-between">
+              <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Freq Start</label>
+              <span id="freq-start-value" class="text-xs tabular-nums text-slate-500">440 Hz</span>
+            </div>
+            <input type="range" id="freq-start" min="50" max="2400" value="440" step="1" autocomplete="off"
+              class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-indigo-500 dark:bg-slate-700">
+          </div>
+          <div>
+            <div class="mb-1 flex items-center justify-between">
+              <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Freq End</label>
+              <span id="freq-end-value" class="text-xs tabular-nums text-slate-500">440 Hz</span>
+            </div>
+            <input type="range" id="freq-end" min="50" max="2400" value="440" step="1" autocomplete="off"
+              class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-indigo-500 dark:bg-slate-700">
+          </div>
+        </div>
+
+        <!-- Volume & Duration -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <div class="mb-1 flex items-center justify-between">
+              <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Volume</label>
+              <span id="volume-value" class="text-xs tabular-nums text-slate-500">20%</span>
+            </div>
+            <input type="range" id="volume" min="1" max="40" value="20" step="1" autocomplete="off"
+              class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-indigo-500 dark:bg-slate-700">
+          </div>
+          <div>
+            <div class="mb-1 flex items-center justify-between">
+              <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Duration</label>
+              <span id="duration-value" class="text-xs tabular-nums text-slate-500">200 ms</span>
+            </div>
+            <input type="range" id="duration" min="20" max="500" value="200" step="10" autocomplete="off"
+              class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-indigo-500 dark:bg-slate-700">
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview & Actions -->
+      <div class="mt-5 flex gap-3">
+        <button id="editor-preview"
+          class="flex-1 rounded-xl bg-indigo-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 dark:bg-indigo-400 dark:text-slate-900 dark:hover:bg-indigo-300">
+          Preview
+        </button>
+        <button id="editor-export"
+          class="flex-1 rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-400 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-emerald-300 dark:hover:text-emerald-300">
+          Export Code
+        </button>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -1464,6 +1599,15 @@
               ${sound.name}
             </button>
             <button
+              data-edit="${category}-${index}"
+              class="rounded-xl border border-slate-200/80 bg-white/80 px-3 text-slate-600 transition hover:border-indigo-400/70 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-indigo-300/70 dark:hover:text-indigo-200"
+              title="Edit sound"
+            >
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+            </button>
+            <button
               data-export="${category}-${index}"
               class="rounded-xl border border-slate-200/80 bg-white/80 px-3 text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
               title="Export code"
@@ -1536,6 +1680,565 @@
         event.clientY > bounds.bottom;
       if (clickedOutside) {
         exportDialog.close();
+      }
+    });
+
+    // Editor functionality
+    const editorDialog = document.getElementById("editor-dialog");
+    const editorTitle = document.getElementById("editor-dialog-title");
+    const partsContainer = document.getElementById("parts-container");
+    const addPartBtn = document.getElementById("add-part-btn");
+    const deletePartBtn = document.getElementById("delete-part-btn");
+    const partControls = document.getElementById("part-controls");
+    const selectedPartNum = document.getElementById("selected-part-num");
+    const delayInput = document.getElementById("part-delay");
+    const delayValue = document.getElementById("delay-value");
+    const freqStartInput = document.getElementById("freq-start");
+    const freqEndInput = document.getElementById("freq-end");
+    const volumeInput = document.getElementById("volume");
+    const durationInput = document.getElementById("duration");
+    const freqStartValue = document.getElementById("freq-start-value");
+    const freqEndValue = document.getElementById("freq-end-value");
+    const volumeValue = document.getElementById("volume-value");
+    const durationValue = document.getElementById("duration-value");
+    const waveformBtns = document.querySelectorAll(".waveform-btn");
+    const editorPreview = document.getElementById("editor-preview");
+    const editorExport = document.getElementById("editor-export");
+    const waveformCanvas = document.getElementById("waveform-canvas");
+    const waveformIdle = document.getElementById("waveform-idle");
+    const canvasCtx = waveformCanvas.getContext("2d");
+
+    // Create analyser for visualization
+    const analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    // Multi-part sound state
+    let currentEditor = {
+      name: "Custom Sound",
+      parts: [],
+      selectedPart: 0
+    };
+
+    function createDefaultPart(delay = 0) {
+      return {
+        delay: delay,
+        waveform: "sine",
+        freqStart: 440,
+        freqEnd: 440,
+        freqMode: "ramp", // "ramp" or "step"
+        freqChangeTime: 0.5, // 0-1 ratio of duration for step mode
+        volume: 0.2,
+        duration: 0.15
+      };
+    }
+
+    let animationId = null;
+    let previewTimeout = null;
+    let isPlaying = false;
+    let playEndTime = 0;
+
+    // Resize canvas to match display size
+    function resizeCanvas() {
+      const rect = waveformCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      waveformCanvas.width = rect.width * dpr;
+      waveformCanvas.height = rect.height * dpr;
+      canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    // Draw waveform visualization
+    function drawWaveform() {
+      if (!editorDialog.open) {
+        animationId = null;
+        return;
+      }
+
+      const rect = waveformCanvas.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+
+      analyser.getByteTimeDomainData(dataArray);
+
+      canvasCtx.fillStyle = "rgb(15, 23, 42)";
+      canvasCtx.fillRect(0, 0, width, height);
+
+      const hasActivity = dataArray.some(v => Math.abs(v - 128) > 2);
+
+      if (hasActivity || (isPlaying && Date.now() < playEndTime)) {
+        waveformIdle.style.opacity = "0";
+        canvasCtx.lineWidth = 2.5;
+        canvasCtx.strokeStyle = "rgb(99, 102, 241)";
+        canvasCtx.beginPath();
+
+        const sliceWidth = width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = (v * height) / 2;
+          if (i === 0) canvasCtx.moveTo(x, y);
+          else canvasCtx.lineTo(x, y);
+          x += sliceWidth;
+        }
+        canvasCtx.stroke();
+      } else {
+        waveformIdle.style.opacity = "1";
+        canvasCtx.strokeStyle = "rgb(51, 65, 85)";
+        canvasCtx.lineWidth = 1;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(0, height / 2);
+        canvasCtx.lineTo(width, height / 2);
+        canvasCtx.stroke();
+      }
+
+      animationId = requestAnimationFrame(drawWaveform);
+    }
+
+    function startVisualization() {
+      resizeCanvas();
+      if (!animationId) drawWaveform();
+    }
+
+    // Render parts list
+    function renderParts() {
+      const totalDuration = Math.max(...currentEditor.parts.map(p => p.delay + p.duration), 0.5);
+
+      partsContainer.innerHTML = currentEditor.parts.map((part, i) => {
+        const leftPercent = (part.delay / totalDuration) * 100;
+        const widthPercent = (part.duration / totalDuration) * 100;
+        const isSelected = i === currentEditor.selectedPart;
+        const colors = {
+          sine: "bg-indigo-500",
+          square: "bg-amber-500",
+          triangle: "bg-emerald-500",
+          sawtooth: "bg-rose-500"
+        };
+        return `
+          <div class="relative h-8 rounded-lg bg-slate-200 dark:bg-slate-700 cursor-pointer overflow-hidden" data-part-index="${i}">
+            <div class="absolute top-1 bottom-1 rounded ${colors[part.waveform] || 'bg-indigo-500'} ${isSelected ? 'ring-2 ring-white ring-offset-1 ring-offset-slate-200 dark:ring-offset-slate-700' : ''}"
+              style="left: ${leftPercent}%; width: ${Math.max(widthPercent, 3)}%;">
+              <span class="absolute inset-0 flex items-center justify-center text-[10px] font-medium text-white">${i + 1}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Add click handlers
+      partsContainer.querySelectorAll("[data-part-index]").forEach(el => {
+        el.addEventListener("click", () => {
+          currentEditor.selectedPart = parseInt(el.dataset.partIndex);
+          renderParts();
+          updateControlsFromPart();
+        });
+      });
+
+      selectedPartNum.textContent = currentEditor.selectedPart + 1;
+      deletePartBtn.style.display = currentEditor.parts.length > 1 ? "" : "none";
+    }
+
+    // Update controls to show selected part values
+    function updateControlsFromPart() {
+      const part = currentEditor.parts[currentEditor.selectedPart];
+      if (!part) return;
+
+      delayInput.value = part.delay * 1000;
+      delayValue.textContent = `${Math.round(part.delay * 1000)} ms`;
+
+      freqStartInput.value = part.freqStart;
+      freqStartValue.textContent = `${Math.round(part.freqStart)} Hz`;
+
+      freqEndInput.value = part.freqEnd;
+      freqEndValue.textContent = `${Math.round(part.freqEnd)} Hz`;
+
+      volumeInput.value = part.volume * 100;
+      volumeValue.textContent = `${Math.round(part.volume * 100)}%`;
+
+      durationInput.value = part.duration * 1000;
+      durationValue.textContent = `${Math.round(part.duration * 1000)} ms`;
+
+      waveformBtns.forEach(btn => {
+        btn.classList.remove("border-indigo-500", "bg-indigo-50", "text-indigo-700", "dark:bg-indigo-900/30", "dark:text-indigo-300");
+        if (btn.dataset.waveform === part.waveform) {
+          btn.classList.add("border-indigo-500", "bg-indigo-50", "text-indigo-700", "dark:bg-indigo-900/30", "dark:text-indigo-300");
+        }
+      });
+
+      selectedPartNum.textContent = currentEditor.selectedPart + 1;
+    }
+
+    // Update selected part from controls
+    function updatePartFromControls() {
+      const part = currentEditor.parts[currentEditor.selectedPart];
+      if (!part) return;
+
+      part.delay = parseInt(delayInput.value) / 1000;
+      part.freqStart = parseInt(freqStartInput.value);
+      part.freqEnd = parseInt(freqEndInput.value);
+      part.volume = parseInt(volumeInput.value) / 100;
+      part.duration = parseInt(durationInput.value) / 1000;
+      // Ensure defaults for missing properties
+      if (!part.freqMode) part.freqMode = "ramp";
+      if (part.freqChangeTime === undefined) part.freqChangeTime = 0.5;
+
+      renderParts();
+    }
+
+    // Waveform button handlers
+    waveformBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const part = currentEditor.parts[currentEditor.selectedPart];
+        if (!part) return;
+        part.waveform = btn.dataset.waveform;
+        waveformBtns.forEach(b => {
+          b.classList.remove("border-indigo-500", "bg-indigo-50", "text-indigo-700", "dark:bg-indigo-900/30", "dark:text-indigo-300");
+        });
+        btn.classList.add("border-indigo-500", "bg-indigo-50", "text-indigo-700", "dark:bg-indigo-900/30", "dark:text-indigo-300");
+        renderParts();
+        schedulePreview();
+      });
+    });
+
+    // Schedule auto-preview with debounce
+    function schedulePreview() {
+      if (previewTimeout) clearTimeout(previewTimeout);
+      previewTimeout = setTimeout(() => playEditedSound(), 150);
+    }
+
+    // Slider handlers
+    delayInput.addEventListener("input", () => {
+      delayValue.textContent = `${delayInput.value} ms`;
+      updatePartFromControls();
+      schedulePreview();
+    });
+
+    freqStartInput.addEventListener("input", () => {
+      freqStartValue.textContent = `${freqStartInput.value} Hz`;
+      updatePartFromControls();
+      schedulePreview();
+    });
+
+    freqEndInput.addEventListener("input", () => {
+      freqEndValue.textContent = `${freqEndInput.value} Hz`;
+      updatePartFromControls();
+      schedulePreview();
+    });
+
+    volumeInput.addEventListener("input", () => {
+      volumeValue.textContent = `${volumeInput.value}%`;
+      updatePartFromControls();
+      schedulePreview();
+    });
+
+    durationInput.addEventListener("input", () => {
+      durationValue.textContent = `${durationInput.value} ms`;
+      updatePartFromControls();
+      schedulePreview();
+    });
+
+    // Add part
+    addPartBtn.addEventListener("click", () => {
+      const lastPart = currentEditor.parts[currentEditor.parts.length - 1];
+      const newDelay = lastPart ? lastPart.delay + lastPart.duration + 0.05 : 0;
+      currentEditor.parts.push(createDefaultPart(newDelay));
+      currentEditor.selectedPart = currentEditor.parts.length - 1;
+      renderParts();
+      updateControlsFromPart();
+      schedulePreview();
+    });
+
+    // Delete part
+    deletePartBtn.addEventListener("click", () => {
+      if (currentEditor.parts.length <= 1) return;
+      currentEditor.parts.splice(currentEditor.selectedPart, 1);
+      currentEditor.selectedPart = Math.min(currentEditor.selectedPart, currentEditor.parts.length - 1);
+      renderParts();
+      updateControlsFromPart();
+      schedulePreview();
+    });
+
+    // Play all parts
+    function playEditedSound() {
+      if (audioCtx.state === "suspended") audioCtx.resume();
+
+      const totalDuration = Math.max(...currentEditor.parts.map(p => p.delay + p.duration));
+      isPlaying = true;
+      playEndTime = Date.now() + (totalDuration * 1000) + 150;
+
+      const now = audioCtx.currentTime;
+
+      currentEditor.parts.forEach((part, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = part.waveform;
+        osc.connect(gain);
+        gain.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        const startTime = now + part.delay;
+        osc.frequency.setValueAtTime(part.freqStart, startTime);
+
+        if (part.freqEnd !== part.freqStart) {
+          if (part.freqMode === "step") {
+            // Step change at specific time
+            const changeTime = startTime + part.duration * part.freqChangeTime;
+            osc.frequency.setValueAtTime(part.freqEnd, changeTime);
+          } else {
+            // Smooth ramp
+            osc.frequency.exponentialRampToValueAtTime(
+              Math.max(part.freqEnd, 20),
+              startTime + part.duration * 0.8
+            );
+          }
+        }
+
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.setValueAtTime(part.volume, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + part.duration);
+
+        osc.start(startTime);
+        osc.stop(startTime + part.duration);
+
+        if (i === currentEditor.parts.length - 1) {
+          osc.onended = () => { isPlaying = false; };
+        }
+      });
+    }
+
+    // Generate frequency change code for a part
+    function getFreqCode(p, timeVar) {
+      if (p.freqEnd === p.freqStart) return "";
+      if (p.freqMode === "step") {
+        const changeTime = (p.duration * (p.freqChangeTime || 0.5)).toFixed(3);
+        return `\n  osc.frequency.setValueAtTime(${p.freqEnd}, ${timeVar} + ${changeTime});`;
+      } else {
+        return `\n  osc.frequency.exponentialRampToValueAtTime(${Math.max(p.freqEnd, 20)}, ${timeVar} + ${(p.duration * 0.8).toFixed(3)});`;
+      }
+    }
+
+    // Generate code for multi-part sound
+    function generateEditedCode() {
+      const funcName = `play${currentEditor.name.replace(/\s+/g, "")}`;
+
+      if (currentEditor.parts.length === 1) {
+        const p = currentEditor.parts[0];
+        const freqCode = getFreqCode(p, "ctx.currentTime");
+        return `function ${funcName}() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "${p.waveform}";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(${p.freqStart}, ctx.currentTime);${freqCode}
+  gain.gain.setValueAtTime(${p.volume}, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + ${p.duration});
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + ${p.duration});
+}`;
+      }
+
+      const partsCode = currentEditor.parts.map((p, i) => {
+        const freqCode = getFreqCode(p, "t");
+        return `  // Part ${i + 1}
+  {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const t = ctx.currentTime + ${p.delay};
+    osc.type = "${p.waveform}";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(${p.freqStart}, t);${freqCode}
+    gain.gain.setValueAtTime(${p.volume}, t);
+    gain.gain.exponentialRampToValueAtTime(0.01, t + ${p.duration});
+    osc.start(t);
+    osc.stop(t + ${p.duration});
+  }`;
+      }).join("\n\n");
+
+      return `function ${funcName}() {
+  const ctx = new AudioContext();
+
+${partsCode}
+}`;
+    }
+
+    // Preview button handler
+    editorPreview.addEventListener("click", playEditedSound);
+
+    // Export button handler
+    editorExport.addEventListener("click", () => {
+      editorDialog.close();
+      exportTitle.textContent = currentEditor.name + " (Edited)";
+      exportCode.textContent = generateEditedCode();
+      exportDialog.showModal();
+    });
+
+    // Store reference to original sound for playback
+    let originalSound = null;
+
+    // Edit button handlers
+    document.querySelectorAll("[data-edit]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const [category, index] = button.dataset.edit.split("-");
+        const sound = sounds[category]?.[parseInt(index)];
+        if (!sound) return;
+
+        originalSound = sound;
+        currentEditor.name = sound.name;
+        editorTitle.textContent = sound.name;
+
+        // Parse sound code to extract parts
+        const code = sound.code;
+        currentEditor.parts = [];
+
+        // Try to detect multi-part sounds (forEach loops or multiple oscillators)
+        const notesMatch = code.match(/(?:notes|frequencies)\s*=\s*\[([\d.,\s]+)\]/);
+        const forLoopMatch = code.match(/for\s*\(\s*let\s+i\s*=\s*0;\s*i\s*<\s*(\d+)/);
+
+        if (notesMatch) {
+          // Multi-note sound like ascending/descending
+          const notes = notesMatch[1].split(",").map(n => parseFloat(n.trim()));
+          const waveMatch = code.match(/osc\.type\s*=\s*["'](\w+)["']/);
+          const waveform = waveMatch ? waveMatch[1] : "sine";
+          const delayMatch = code.match(/i\s*\*\s*([\d.]+)/);
+          const delayStep = delayMatch ? parseFloat(delayMatch[1]) : 0.1;
+          // Extract duration from stop() call
+          const durMatch = code.match(/osc\.stop\([^)]*\+\s*([\d.]+)\s*\)/);
+          const duration = durMatch ? parseFloat(durMatch[1]) : 0.15;
+          const volMatch = code.match(/gain\.gain\.(?:setValueAtTime|linearRampToValueAtTime)\(([\d.]+)/);
+          const volume = volMatch ? parseFloat(volMatch[1]) : 0.2;
+
+          notes.forEach((freq, i) => {
+            currentEditor.parts.push({
+              delay: i * delayStep,
+              waveform: waveform,
+              freqStart: freq,
+              freqEnd: freq,
+              freqMode: "ramp",
+              freqChangeTime: 0.5,
+              volume: volume,
+              duration: duration
+            });
+          });
+        } else if (forLoopMatch) {
+          // Loop-based sound like sparkle or warning
+          const count = parseInt(forLoopMatch[1]);
+          const waveMatch = code.match(/osc\.type\s*=\s*["'](\w+)["']/);
+          const waveform = waveMatch ? waveMatch[1] : "sine";
+          const delayMatch = code.match(/i\s*\*\s*([\d.]+)/);
+          const delayStep = delayMatch ? parseFloat(delayMatch[1]) : 0.05;
+          // Try to get frequency - could be constant or variable
+          const freqMatch = code.match(/frequency\.setValueAtTime\((\d+)/);
+          const baseFreq = freqMatch ? parseFloat(freqMatch[1]) : 440;
+          // Check if frequency varies with i
+          const freqVaries = code.includes("+ i *") || code.includes("- i *");
+          const freqStepMatch = code.match(/([+-])\s*i\s*\*\s*(\d+)/);
+          const freqStep = freqStepMatch ? (freqStepMatch[1] === "-" ? -1 : 1) * parseFloat(freqStepMatch[2]) : 0;
+          // Extract duration
+          const durMatch = code.match(/osc\.stop\([^)]*\+\s*([\d.]+)\s*\)/);
+          const duration = durMatch ? parseFloat(durMatch[1]) : 0.1;
+          const volMatch = code.match(/gain\.gain\.(?:setValueAtTime|linearRampToValueAtTime)\(([\d.]+)/);
+          const volume = volMatch ? parseFloat(volMatch[1]) : 0.15;
+
+          for (let i = 0; i < count; i++) {
+            currentEditor.parts.push({
+              delay: i * delayStep,
+              waveform: waveform,
+              freqStart: baseFreq + (freqVaries ? i * freqStep : 0),
+              freqEnd: baseFreq + (freqVaries ? i * freqStep : 0),
+              freqMode: "ramp",
+              freqChangeTime: 0.5,
+              volume: volume,
+              duration: duration
+            });
+          }
+        } else {
+          // Single oscillator sound - check for step vs ramp frequency
+          const waveMatch = code.match(/osc\.type\s*=\s*["'](\w+)["']/);
+          const waveform = waveMatch ? waveMatch[1] : "sine";
+
+          // Get all frequency setValueAtTime calls
+          const freqSetMatches = [...code.matchAll(/frequency\.setValueAtTime\((\d+(?:\.\d+)?)[^)]*\+?\s*([\d.]*)/g)];
+          const freqRampMatch = code.match(/frequency\.(?:exponential|linear)RampToValueAtTime\((\d+(?:\.\d+)?)/);
+
+          let freq = 440, freqEnd = 440, freqMode = "ramp", freqChangeTime = 0.5;
+
+          if (freqSetMatches.length >= 2) {
+            // Step frequency change (two setValueAtTime calls)
+            freq = parseFloat(freqSetMatches[0][1]);
+            freqEnd = parseFloat(freqSetMatches[1][1]);
+            freqMode = "step";
+            // Extract the time of the second setValueAtTime
+            const timeMatch = freqSetMatches[1][0].match(/\+\s*([\d.]+)/);
+            const changeTime = timeMatch ? parseFloat(timeMatch[1]) : 0.05;
+            // Get duration to calculate ratio
+            const durMatch = code.match(/osc\.stop\(ctx\.currentTime\s*\+\s*([\d.]+)\)/);
+            const dur = durMatch ? parseFloat(durMatch[1]) : 0.2;
+            freqChangeTime = changeTime / dur;
+          } else if (freqSetMatches.length === 1) {
+            freq = parseFloat(freqSetMatches[0][1]);
+            if (freqRampMatch) {
+              freqEnd = parseFloat(freqRampMatch[1]);
+              freqMode = "ramp";
+            } else {
+              freqEnd = freq;
+            }
+          }
+
+          const volMatch = code.match(/gain\.gain\.setValueAtTime\((0?\.?\d+)/);
+          const vol = volMatch ? parseFloat(volMatch[1]) : 0.2;
+          const durMatch = code.match(/osc\.stop\(ctx\.currentTime\s*\+\s*([\d.]+)\)/);
+          const dur = durMatch ? parseFloat(durMatch[1]) : 0.2;
+
+          currentEditor.parts.push({
+            delay: 0,
+            waveform: waveform,
+            freqStart: freq,
+            freqEnd: freqEnd,
+            freqMode: freqMode,
+            freqChangeTime: freqChangeTime,
+            volume: vol,
+            duration: dur
+          });
+        }
+
+        currentEditor.selectedPart = 0;
+        renderParts();
+        updateControlsFromPart();
+
+        editorDialog.showModal();
+        requestAnimationFrame(() => {
+          startVisualization();
+          // Play the ORIGINAL sound to hear what we're editing
+          if (audioCtx.state === "suspended") audioCtx.resume();
+          setTimeout(() => {
+            isPlaying = true;
+            playEndTime = Date.now() + 500;
+            sound.play();
+          }, 100);
+        });
+      });
+    });
+
+    // Editor dialog close on outside click
+    editorDialog.addEventListener("click", (event) => {
+      const bounds = editorDialog.getBoundingClientRect();
+      const clickedOutside =
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom;
+      if (clickedOutside) {
+        editorDialog.close();
+      }
+    });
+
+    // Handle window resize for canvas
+    window.addEventListener("resize", () => {
+      if (editorDialog.open) {
+        resizeCanvas();
       }
     });
   </script>

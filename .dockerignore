@@ -1,0 +1,15 @@
+.git
+.gitignore
+.claude
+.cursor
+node_modules
+bin
+AGENTS.md
+CLAUDE.md
+README.md
+package.json
+bun.lock
+bunfig.toml
+tsconfig.json
+nginx.conf
+.DS_Store
