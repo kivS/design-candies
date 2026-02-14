@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound Effects</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <div
+    class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.14),_transparent_50%),radial-gradient(circle_at_30%_70%,_rgba(56,189,248,0.12),_transparent_45%)] dark:bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_45%),radial-gradient(circle_at_30%_70%,_rgba(56,189,248,0.18),_transparent_40%)]">
+  </div>
+
+  <main class="relative mx-auto max-w-6xl px-6 py-12">
+    <header class="flex flex-col gap-6 border-b border-slate-200/80 pb-8 dark:border-white/10">
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="/"
+          class="inline-flex items-center rounded-full border border-slate-300 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700 transition hover:border-emerald-500/70 hover:text-emerald-600 dark:border-white/20 dark:text-slate-200 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200">
+          Home
+        </a>
+      </div>
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div class="max-w-3xl space-y-4">
+          <h1 class="font-display text-4xl font-semibold sm:text-5xl">
+            Sound Effects
+          </h1>
+          <p class="font-body text-lg text-slate-600 dark:text-slate-300">
+            Web Audio API sounds for UI feedback. Click to preview, export to use in your apps.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <section class="mt-10 grid gap-8">
+      <!-- Success Sounds -->
+      <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="font-display text-2xl font-semibold">Success</h2>
+          <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Completion & confirmation
+          </span>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Positive feedback for completed actions, successful operations, and achievements.
+        </p>
+        <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-sound-grid="success"></div>
+      </div>
+
+      <!-- Error Sounds -->
+      <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="font-display text-2xl font-semibold">Error</h2>
+          <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Failures & warnings
+          </span>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Alert users to problems, validation errors, and failed operations.
+        </p>
+        <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-sound-grid="error"></div>
+      </div>
+
+      <!-- Notification Sounds -->
+      <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="font-display text-2xl font-semibold">Notification</h2>
+          <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Alerts & pings
+          </span>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Gentle attention-grabbers for new messages, updates, and system notifications.
+        </p>
+        <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-sound-grid="notification"></div>
+      </div>
+
+      <!-- Click Sounds -->
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Click</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              Taps & presses
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Tactile feedback for button presses and interactive elements.
+          </p>
+          <div class="mt-6 grid gap-3" data-sound-grid="click"></div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Hover</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              Subtle focus
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Quiet sounds for hover states and focus changes.
+          </p>
+          <div class="mt-6 grid gap-3" data-sound-grid="hover"></div>
+        </div>
+      </div>
+
+      <!-- Transition Sounds -->
+      <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="font-display text-2xl font-semibold">Transition</h2>
+          <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Swooshes & slides
+          </span>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Movement sounds for page transitions, modals opening, and sliding panels.
+        </p>
+        <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-sound-grid="transition"></div>
+      </div>
+
+      <!-- Toggle Sounds -->
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Toggle</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              On/off states
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Switch and checkbox feedback sounds.
+          </p>
+          <div class="mt-6 grid gap-3" data-sound-grid="toggle"></div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-2xl font-semibold">Delete</h2>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+              Removal actions
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Sounds for deleting, clearing, and removing items.
+          </p>
+          <div class="mt-6 grid gap-3" data-sound-grid="delete"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Export Modal -->
+  <dialog id="export-dialog"
+    class="w-[min(92vw,700px)] max-h-[85vh] overflow-hidden overscroll-y-contain rounded-3xl border border-slate-200/80 bg-white/95 p-0 shadow-2xl dark:border-white/10 dark:bg-slate-950/95">
+    <div class="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-white/10">
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Export</p>
+        <h3 id="export-dialog-title" class="font-display text-xl font-semibold">Sound Code</h3>
+      </div>
+      <button type="button" data-dialog-close
+        class="inline-flex items-center rounded-full border border-slate-200/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 transition hover:border-rose-400/70 hover:text-rose-600 dark:border-white/10 dark:text-slate-200 dark:hover:border-rose-300/70 dark:hover:text-rose-200">
+        Close
+      </button>
+    </div>
+    <div class="px-6 py-6">
+      <pre id="export-code" class="max-h-[50vh] overflow-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100 dark:bg-slate-800"><code></code></pre>
+      <button id="copy-code"
+        class="mt-4 w-full rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600 dark:bg-emerald-400 dark:text-slate-900 dark:hover:bg-emerald-300">
+        Copy to Clipboard
+      </button>
+    </div>
+  </dialog>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Sound definitions with their generator functions and code
+    const sounds = {
+      success: [
+        {
+          name: "Chime",
+          color: "emerald",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(1108.73, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.4);
+          },
+          code: `function playChime() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(880, ctx.currentTime);
+  osc.frequency.setValueAtTime(1108.73, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.4);
+}`
+        },
+        {
+          name: "Ding",
+          color: "emerald",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.3);
+          },
+          code: `function playDing() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(1200, ctx.currentTime);
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.3);
+}`
+        },
+        {
+          name: "Ascending",
+          color: "emerald",
+          play: () => {
+            const notes = [523.25, 659.25, 783.99];
+            notes.forEach((freq, i) => {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0, audioCtx.currentTime + i * 0.1);
+              gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + i * 0.1 + 0.02);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.1 + 0.2);
+              osc.start(audioCtx.currentTime + i * 0.1);
+              osc.stop(audioCtx.currentTime + i * 0.1 + 0.2);
+            });
+          },
+          code: `function playAscending() {
+  const ctx = new AudioContext();
+  const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+  notes.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.1);
+    gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + i * 0.1 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.2);
+    osc.start(ctx.currentTime + i * 0.1);
+    osc.stop(ctx.currentTime + i * 0.1 + 0.2);
+  });
+}`
+        },
+        {
+          name: "Sparkle",
+          color: "emerald",
+          play: () => {
+            for (let i = 0; i < 5; i++) {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = "sine";
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(1500 + i * 200 + Math.random() * 100, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0, audioCtx.currentTime + i * 0.05);
+              gain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + i * 0.05 + 0.01);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.05 + 0.15);
+              osc.start(audioCtx.currentTime + i * 0.05);
+              osc.stop(audioCtx.currentTime + i * 0.05 + 0.15);
+            }
+          },
+          code: `function playSparkle() {
+  const ctx = new AudioContext();
+  for (let i = 0; i < 5; i++) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(1500 + i * 200 + Math.random() * 100, ctx.currentTime);
+    gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.05);
+    gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.05 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.05 + 0.15);
+    osc.start(ctx.currentTime + i * 0.05);
+    osc.stop(ctx.currentTime + i * 0.05 + 0.15);
+  }
+}`
+        },
+        {
+          name: "Complete",
+          color: "emerald",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(900, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.4);
+          },
+          code: `function playComplete() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(900, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.4);
+}`
+        },
+        {
+          name: "Coin",
+          color: "emerald",
+          play: () => {
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc1.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc1.frequency.setValueAtTime(988, audioCtx.currentTime);
+            osc2.frequency.setValueAtTime(1319, audioCtx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc1.start(audioCtx.currentTime);
+            osc1.stop(audioCtx.currentTime + 0.08);
+            osc2.start(audioCtx.currentTime + 0.08);
+            osc2.stop(audioCtx.currentTime + 0.3);
+          },
+          code: `function playCoin() {
+  const ctx = new AudioContext();
+  const osc1 = ctx.createOscillator();
+  const osc2 = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc1.connect(gain);
+  osc2.connect(gain);
+  gain.connect(ctx.destination);
+  osc1.frequency.setValueAtTime(988, ctx.currentTime); // B5
+  osc2.frequency.setValueAtTime(1319, ctx.currentTime + 0.08); // E6
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+  osc1.start(ctx.currentTime);
+  osc1.stop(ctx.currentTime + 0.08);
+  osc2.start(ctx.currentTime + 0.08);
+  osc2.stop(ctx.currentTime + 0.3);
+}`
+        }
+      ],
+      error: [
+        {
+          name: "Buzz",
+          color: "rose",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sawtooth";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+          },
+          code: `function playBuzz() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sawtooth";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(150, ctx.currentTime);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}`
+        },
+        {
+          name: "Descending",
+          color: "rose",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "square";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.25);
+          },
+          code: `function playDescending() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "square";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.2);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.25);
+}`
+        },
+        {
+          name: "Thud",
+          color: "rose",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+          },
+          code: `function playThud() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(200, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.4, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.15);
+}`
+        },
+        {
+          name: "Blip Down",
+          color: "rose",
+          play: () => {
+            const notes = [392, 330, 262];
+            notes.forEach((freq, i) => {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = "square";
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0.12, audioCtx.currentTime + i * 0.08);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.08 + 0.08);
+              osc.start(audioCtx.currentTime + i * 0.08);
+              osc.stop(audioCtx.currentTime + i * 0.08 + 0.08);
+            });
+          },
+          code: `function playBlipDown() {
+  const ctx = new AudioContext();
+  const notes = [392, 330, 262]; // G4, E4, C4
+  notes.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "square";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.08 + 0.08);
+    osc.start(ctx.currentTime + i * 0.08);
+    osc.stop(ctx.currentTime + i * 0.08 + 0.08);
+  });
+}`
+        },
+        {
+          name: "Warning",
+          color: "amber",
+          play: () => {
+            for (let i = 0; i < 2; i++) {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = "triangle";
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0.2, audioCtx.currentTime + i * 0.15);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.15 + 0.1);
+              osc.start(audioCtx.currentTime + i * 0.15);
+              osc.stop(audioCtx.currentTime + i * 0.15 + 0.1);
+            }
+          },
+          code: `function playWarning() {
+  const ctx = new AudioContext();
+  for (let i = 0; i < 2; i++) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "triangle";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(440, ctx.currentTime);
+    gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.15);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.15 + 0.1);
+    osc.start(ctx.currentTime + i * 0.15);
+    osc.stop(ctx.currentTime + i * 0.15 + 0.1);
+  }
+}`
+        },
+        {
+          name: "Reject",
+          color: "rose",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sawtooth";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+          },
+          code: `function playReject() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sawtooth";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(300, ctx.currentTime);
+  osc.frequency.setValueAtTime(200, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}`
+        }
+      ],
+      notification: [
+        {
+          name: "Ping",
+          color: "sky",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+          },
+          code: `function playPing() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(1000, ctx.currentTime);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.15);
+}`
+        },
+        {
+          name: "Pop",
+          color: "sky",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.08);
+          },
+          code: `function playPop() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.08);
+}`
+        },
+        {
+          name: "Blip",
+          color: "sky",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(660, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.06);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.12);
+          },
+          code: `function playBlip() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(660, ctx.currentTime);
+  osc.frequency.setValueAtTime(880, ctx.currentTime + 0.06);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.12);
+}`
+        },
+        {
+          name: "Bell",
+          color: "sky",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc2.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.start(audioCtx.currentTime);
+            osc2.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.5);
+            osc2.stop(audioCtx.currentTime + 0.5);
+          },
+          code: `function playBell() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const osc2 = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  osc2.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc2.frequency.setValueAtTime(1200, ctx.currentTime);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+  osc.start(ctx.currentTime);
+  osc2.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.5);
+  osc2.stop(ctx.currentTime + 0.5);
+}`
+        },
+        {
+          name: "Message",
+          color: "sky",
+          play: () => {
+            const notes = [880, 1046.5];
+            notes.forEach((freq, i) => {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = "sine";
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+              gain.gain.setValueAtTime(0.2, audioCtx.currentTime + i * 0.12);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.12 + 0.15);
+              osc.start(audioCtx.currentTime + i * 0.12);
+              osc.stop(audioCtx.currentTime + i * 0.12 + 0.15);
+            });
+          },
+          code: `function playMessage() {
+  const ctx = new AudioContext();
+  const notes = [880, 1046.5]; // A5, C6
+  notes.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.12);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.12 + 0.15);
+    osc.start(ctx.currentTime + i * 0.12);
+    osc.stop(ctx.currentTime + i * 0.12 + 0.15);
+  });
+}`
+        },
+        {
+          name: "Soft Alert",
+          color: "violet",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.3);
+          },
+          code: `function playSoftAlert() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.3);
+}`
+        }
+      ],
+      click: [
+        {
+          name: "Soft Click",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(1800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.02);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.03);
+          },
+          code: `function playSoftClick() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(1800, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.02);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.03);
+}`
+        },
+        {
+          name: "Tap",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+          },
+          code: `function playTap() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.04);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.04);
+}`
+        },
+        {
+          name: "Press",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.03);
+            gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+          },
+          code: `function playPress() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(300, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.03);
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.05);
+}`
+        },
+        {
+          name: "Tick",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "square";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(2000, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.015);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.015);
+          },
+          code: `function playTick() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "square";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(2000, ctx.currentTime);
+  gain.gain.setValueAtTime(0.08, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.015);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.015);
+}`
+        }
+      ],
+      hover: [
+        {
+          name: "Whisper",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+          },
+          code: `function playWhisper() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(2400, ctx.currentTime);
+  gain.gain.setValueAtTime(0.05, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.05);
+}`
+        },
+        {
+          name: "Subtle",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(1400, audioCtx.currentTime + 0.03);
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+          },
+          code: `function playSubtle() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(1200, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(1400, ctx.currentTime + 0.03);
+  gain.gain.setValueAtTime(0.04, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.04);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.04);
+}`
+        },
+        {
+          name: "Breath",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.06);
+          },
+          code: `function playBreath() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.06);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.06);
+}`
+        }
+      ],
+      transition: [
+        {
+          name: "Swoosh Up",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+          },
+          code: `function playSwooshUp() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(200, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}`
+        },
+        {
+          name: "Swoosh Down",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+          },
+          code: `function playSwooshDown() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}`
+        },
+        {
+          name: "Slide In",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+          },
+          code: `function playSlideIn() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(300, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(500, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.15);
+}`
+        },
+        {
+          name: "Slide Out",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.12);
+          },
+          code: `function playSlideOut() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(500, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(300, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.12);
+}`
+        },
+        {
+          name: "Expand",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.08);
+            osc.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.2);
+          },
+          code: `function playExpand() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(600, ctx.currentTime + 0.08);
+  osc.frequency.linearRampToValueAtTime(500, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}`
+        },
+        {
+          name: "Collapse",
+          color: "indigo",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.08);
+            osc.frequency.linearRampToValueAtTime(350, audioCtx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.15);
+          },
+          code: `function playCollapse() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(400, ctx.currentTime + 0.08);
+  osc.frequency.linearRampToValueAtTime(350, ctx.currentTime + 0.12);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.15);
+}`
+        }
+      ],
+      toggle: [
+        {
+          name: "On",
+          color: "emerald",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.12);
+          },
+          code: `function playToggleOn() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.setValueAtTime(600, ctx.currentTime + 0.05);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.12);
+}`
+        },
+        {
+          name: "Off",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.12);
+          },
+          code: `function playToggleOff() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.setValueAtTime(400, ctx.currentTime + 0.05);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.12);
+}`
+        },
+        {
+          name: "Check",
+          color: "emerald",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.04);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+          },
+          code: `function playCheck() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc.frequency.setValueAtTime(1000, ctx.currentTime + 0.04);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.1);
+}`
+        },
+        {
+          name: "Uncheck",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime + 0.04);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.1);
+          },
+          code: `function playUncheck() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "triangle";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc.frequency.setValueAtTime(600, ctx.currentTime + 0.04);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.1);
+}`
+        }
+      ],
+      delete: [
+        {
+          name: "Trash",
+          color: "rose",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sawtooth";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.18);
+          },
+          code: `function playTrash() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sawtooth";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.18);
+}`
+        },
+        {
+          name: "Crumple",
+          color: "rose",
+          play: () => {
+            for (let i = 0; i < 4; i++) {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = "sawtooth";
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.frequency.setValueAtTime(300 - i * 50 + Math.random() * 50, audioCtx.currentTime + i * 0.03);
+              gain.gain.setValueAtTime(0.08, audioCtx.currentTime + i * 0.03);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.03 + 0.05);
+              osc.start(audioCtx.currentTime + i * 0.03);
+              osc.stop(audioCtx.currentTime + i * 0.03 + 0.05);
+            }
+          },
+          code: `function playCrumple() {
+  const ctx = new AudioContext();
+  for (let i = 0; i < 4; i++) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sawtooth";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(300 - i * 50 + Math.random() * 50, ctx.currentTime + i * 0.03);
+    gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.03 + 0.05);
+    osc.start(ctx.currentTime + i * 0.03);
+    osc.stop(ctx.currentTime + i * 0.03 + 0.05);
+  }
+}`
+        },
+        {
+          name: "Poof",
+          color: "slate",
+          play: () => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.25);
+          },
+          code: `function playPoof() {
+  const ctx = new AudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.25);
+}`
+        }
+      ]
+    };
+
+    const colorClasses = {
+      emerald: {
+        bg: "bg-emerald-500 dark:bg-emerald-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-emerald-600 dark:border-emerald-500",
+        hover: "hover:bg-emerald-600 dark:hover:bg-emerald-300"
+      },
+      rose: {
+        bg: "bg-rose-500 dark:bg-rose-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-rose-600 dark:border-rose-500",
+        hover: "hover:bg-rose-600 dark:hover:bg-rose-300"
+      },
+      amber: {
+        bg: "bg-amber-500 dark:bg-amber-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-amber-600 dark:border-amber-500",
+        hover: "hover:bg-amber-600 dark:hover:bg-amber-300"
+      },
+      sky: {
+        bg: "bg-sky-500 dark:bg-sky-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-sky-600 dark:border-sky-500",
+        hover: "hover:bg-sky-600 dark:hover:bg-sky-300"
+      },
+      violet: {
+        bg: "bg-violet-500 dark:bg-violet-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-violet-600 dark:border-violet-500",
+        hover: "hover:bg-violet-600 dark:hover:bg-violet-300"
+      },
+      indigo: {
+        bg: "bg-indigo-500 dark:bg-indigo-400",
+        text: "text-white dark:text-slate-900",
+        border: "border-indigo-600 dark:border-indigo-500",
+        hover: "hover:bg-indigo-600 dark:hover:bg-indigo-300"
+      },
+      slate: {
+        bg: "bg-slate-700 dark:bg-slate-500",
+        text: "text-white",
+        border: "border-slate-800 dark:border-slate-600",
+        hover: "hover:bg-slate-800 dark:hover:bg-slate-400"
+      }
+    };
+
+    // Render sound cards
+    Object.entries(sounds).forEach(([category, categoryBounds]) => {
+      const grid = document.querySelector(`[data-sound-grid="${category}"]`);
+      if (!grid) return;
+
+      grid.innerHTML = categoryBounds.map((sound, index) => {
+        const colors = colorClasses[sound.color] || colorClasses.slate;
+        return `
+          <div class="flex items-stretch gap-2">
+            <button
+              data-play="${category}-${index}"
+              class="flex-1 rounded-xl ${colors.bg} ${colors.text} px-4 py-3 text-sm font-semibold transition ${colors.hover} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              ${sound.name}
+            </button>
+            <button
+              data-export="${category}-${index}"
+              class="rounded-xl border border-slate-200/80 bg-white/80 px-3 text-slate-600 transition hover:border-emerald-400/70 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-emerald-300/70 dark:hover:text-emerald-200"
+              title="Export code"
+            >
+              { }
+            </button>
+          </div>
+        `;
+      }).join("");
+    });
+
+    // Play button handlers
+    document.querySelectorAll("[data-play]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const [category, index] = button.dataset.play.split("-");
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        sounds[category]?.[parseInt(index)]?.play();
+      });
+    });
+
+    // Export dialog
+    const exportDialog = document.getElementById("export-dialog");
+    const exportCode = document.getElementById("export-code").querySelector("code");
+    const exportTitle = document.getElementById("export-dialog-title");
+    const copyButton = document.getElementById("copy-code");
+
+    document.querySelectorAll("[data-export]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const [category, index] = button.dataset.export.split("-");
+        const sound = sounds[category]?.[parseInt(index)];
+        if (!sound) return;
+
+        exportTitle.textContent = sound.name;
+        exportCode.textContent = sound.code;
+        exportDialog.showModal();
+      });
+    });
+
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(exportCode.textContent);
+        copyButton.textContent = "Copied!";
+        setTimeout(() => {
+          copyButton.textContent = "Copy to Clipboard";
+        }, 2000);
+      } catch (err) {
+        copyButton.textContent = "Failed to copy";
+        setTimeout(() => {
+          copyButton.textContent = "Copy to Clipboard";
+        }, 2000);
+      }
+    });
+
+    // Dialog close handlers
+    document.querySelectorAll("[data-dialog-close]").forEach((button) => {
+      const dialog = button.closest("dialog");
+      if (dialog) {
+        button.addEventListener("click", () => dialog.close());
+      }
+    });
+
+    exportDialog.addEventListener("click", (event) => {
+      const bounds = exportDialog.getBoundingClientRect();
+      const clickedOutside =
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom;
+      if (clickedOutside) {
+        exportDialog.close();
+      }
+    });
+  </script>
+</body>
+
+</html>

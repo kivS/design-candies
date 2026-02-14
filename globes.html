@@ -24,6 +24,9 @@
   <script src="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@5.17.0/dist/maplibre-gl.css" rel="stylesheet" />
 
+  <!-- deck.gl -->
+  <script src="https://unpkg.com/deck.gl@9.2.6/dist.min.js"></script>
+
   <style>
     .globe-container {
       width: 100%;
@@ -53,7 +56,8 @@
 
     #cesiumContainer,
     #globeglContainer,
-    #maplibreContainer {
+    #maplibreContainer,
+    #deckglContainer {
       width: 100%;
       height: 100%;
     }
@@ -212,7 +216,7 @@
         3D Globe Experiments
       </h1>
       <p class="mt-4 font-body text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
-        Comparing three different WebGL globe libraries: CesiumJS (advanced features), Globe.GL (lightweight), and MapLibre GL (Leaflet-like). Click on each globe to add markers, and use the dropdowns to switch between different tile providers and visual styles. Labels indicate licensing: "Free" means unlimited commercial use, "Free tier" means limited free usage with paid plans available, "Demo only" means not for production.
+        Comparing four different WebGL globe libraries: CesiumJS (advanced features), Globe.GL (lightweight), MapLibre GL (Leaflet-like), and deck.gl (data visualization). Click on each globe to add markers, and use the settings to explore different rendering approaches. Labels indicate licensing: "Free" means unlimited commercial use, "Free tier" means limited free usage with paid plans available.
       </p>
     </header>
 
@@ -229,6 +233,10 @@
       <button class="tab-button" data-tab="maplibre" onclick="switchTab('maplibre')">
         MapLibre GL
         <span class="text-xs opacity-70 ml-2">Leaflet-like</span>
+      </button>
+      <button class="tab-button" data-tab="deckgl" onclick="switchTab('deckgl')">
+        deck.gl
+        <span class="text-xs opacity-70 ml-2">Data Viz</span>
       </button>
     </div>
 
@@ -407,6 +415,62 @@
         </p>
       </div>
     </div>
+
+    <!-- deck.gl -->
+    <div id="deckgl-section" class="globe-section" style="display: none;">
+      <div class="globe-container">
+        <div class="info-badge">deck.gl - Click to add markers</div>
+        <div class="settings-panel">
+          <h4>Layer Settings</h4>
+          <div class="setting-item">
+            <label>Layer Type</label>
+            <select id="deckgl-layer" onchange="changeDeckGLLayer(this.value)" style="width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255,255,255,0.2); padding: 0.25rem; border-radius: 0.25rem; color: white; font-size: 0.75rem;">
+              <option value="scatterplot">Scatterplot</option>
+              <option value="hexagon">Hexagon Aggregation</option>
+              <option value="arc">Arc Connections</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label>
+              Point/Arc Size
+              <span class="setting-value" id="deckgl-size-value">100</span>
+            </label>
+            <input type="range" id="deckgl-size" min="50" max="500" step="50" value="100" oninput="changeDeckGLSize(this.value)" autocomplete="off">
+          </div>
+          <div class="setting-item">
+            <label>
+              Opacity
+              <span class="setting-value" id="deckgl-opacity-value">0.8</span>
+            </label>
+            <input type="range" id="deckgl-opacity" min="0.1" max="1" step="0.1" value="0.8" oninput="changeDeckGLOpacity(this.value)" autocomplete="off">
+          </div>
+        </div>
+        <div class="controls">
+          <div class="controls-row">
+            <label>Base Map:</label>
+            <select id="deckgl-basemap" onchange="changeDeckGLBasemap(this.value)">
+              <option value="dark">Dark (Free)</option>
+              <option value="light">Light (Free)</option>
+              <option value="satellite">Satellite (Free)</option>
+            </select>
+          </div>
+          <div class="controls-row">
+            <button onclick="resetDeckGL()">Reset View</button>
+            <button onclick="clearDeckGLMarkers()">Clear Markers</button>
+          </div>
+        </div>
+        <canvas id="deckglContainer"></canvas>
+      </div>
+      <div class="mt-6 p-6 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+        <h3 class="font-display text-xl font-semibold mb-3">About deck.gl</h3>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300">
+          Uber's high-performance WebGL framework for large-scale data visualization. Layer-based architecture optimized for rendering millions of data points with smooth 60fps performance. Perfect for geospatial analytics and big data visualization.
+        </p>
+        <p class="font-body text-sm text-slate-600 dark:text-slate-300 mt-3">
+          <strong>Try different layers:</strong> Scatterplot for individual points, Hexagon for spatial aggregation, Arc for showing connections. All layers are GPU-accelerated and designed for massive datasets. Free & open source (MIT license).
+        </p>
+      </div>
+    </div>
   </main>
 
   <script type="module">
@@ -567,8 +631,8 @@
 
     function initGlobeGL() {
       globegl = Globe()
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
         .pointAltitude(0.01)
         .pointColor(() => '#00FFFF')
         .pointRadius(0.4)
@@ -609,12 +673,12 @@
 
     window.changeGlobeGLTexture = (texture) => {
       const textures = {
-        'blue-marble': '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
-        'dark': '//unpkg.com/three-globe/example/img/earth-dark.jpg',
-        'topology': '//unpkg.com/three-globe/example/img/earth-topology.png',
-        'bathymetry': '//unpkg.com/three-globe/example/img/earth-water.png',
-        'black-marble': '//unpkg.com/three-globe/example/img/earth-night.jpg',
-        'natural-earth': '//unpkg.com/three-globe/example/img/earth-day.jpg'
+        'blue-marble': 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+        'dark': 'https://unpkg.com/three-globe/example/img/earth-dark.jpg',
+        'topology': 'https://unpkg.com/three-globe/example/img/earth-topology.png',
+        'bathymetry': 'https://unpkg.com/three-globe/example/img/earth-water.png',
+        'black-marble': 'https://unpkg.com/three-globe/example/img/earth-night.jpg',
+        'natural-earth': 'https://unpkg.com/three-globe/example/img/earth-day.jpg'
       };
 
       globegl.globeImageUrl(textures[texture]);
@@ -811,6 +875,203 @@
       }
     }
 
+    // ===== DECK.GL =====
+    let deckglInstance;
+    let deckglMarkers = [];
+    let deckglLayerType = 'scatterplot';
+    let deckglSize = 100;
+    let deckglOpacity = 0.8;
+    let deckglBasemap = 'dark';
+
+    function initDeckGL() {
+      const {Deck, _GlobeView} = deck;
+      const {ScatterplotLayer, ArcLayer} = deck;
+      const {TileLayer} = deck;
+
+      const canvas = document.getElementById('deckglContainer');
+
+      deckglInstance = new Deck({
+        canvas: canvas,
+        views: new _GlobeView(),
+        initialViewState: {
+          longitude: 0,
+          latitude: 20,
+          zoom: 0
+        },
+        controller: true,
+        layers: [
+          getBasemapLayer(),
+          ...getDeckGLDataLayers()
+        ],
+        onClick: (info, event) => {
+          if (!info.object && info.coordinate) {
+            const [lng, lat] = info.coordinate;
+            addDeckGLMarker(lng, lat);
+          }
+        }
+      });
+
+      // Add sample cities
+      sampleCities.forEach(city => addDeckGLMarker(city.lng, city.lat, city.name));
+    }
+
+    function getBasemapLayer() {
+      const {TileLayer, BitmapLayer} = deck;
+
+      const basemaps = {
+        'dark': 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+        'light': 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+        'satellite': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+      };
+
+      return new TileLayer({
+        id: 'basemap',
+        data: basemaps[deckglBasemap],
+        minZoom: 0,
+        maxZoom: 19,
+        tileSize: 256,
+        renderSubLayers: props => {
+          const {
+            bbox: {west, south, east, north}
+          } = props.tile;
+
+          return new BitmapLayer(props, {
+            data: null,
+            image: props.data,
+            bounds: [west, south, east, north]
+          });
+        }
+      });
+    }
+
+    function getDeckGLDataLayers() {
+      const {ScatterplotLayer, ArcLayer, HexagonLayer} = deck;
+
+      if (deckglLayerType === 'scatterplot') {
+        return [
+          new ScatterplotLayer({
+            id: 'scatterplot-layer',
+            data: deckglMarkers,
+            getPosition: d => [d.lng, d.lat],
+            getRadius: deckglSize,
+            getFillColor: [0, 255, 255],
+            opacity: deckglOpacity,
+            pickable: true,
+            radiusMinPixels: 3,
+            radiusMaxPixels: 30
+          })
+        ];
+      } else if (deckglLayerType === 'hexagon') {
+        return [
+          new HexagonLayer({
+            id: 'hexagon-layer',
+            data: deckglMarkers,
+            getPosition: d => [d.lng, d.lat],
+            radius: deckglSize * 1000,
+            extruded: true,
+            opacity: deckglOpacity,
+            pickable: true,
+            elevationScale: 50
+          })
+        ];
+      } else if (deckglLayerType === 'arc') {
+        // Create arcs between consecutive markers
+        const arcs = [];
+        for (let i = 0; i < deckglMarkers.length - 1; i++) {
+          arcs.push({
+            source: [deckglMarkers[i].lng, deckglMarkers[i].lat],
+            target: [deckglMarkers[i + 1].lng, deckglMarkers[i + 1].lat]
+          });
+        }
+
+        return [
+          new ScatterplotLayer({
+            id: 'points-layer',
+            data: deckglMarkers,
+            getPosition: d => [d.lng, d.lat],
+            getRadius: deckglSize / 2,
+            getFillColor: [0, 255, 255],
+            opacity: deckglOpacity,
+            radiusMinPixels: 3,
+            radiusMaxPixels: 15
+          }),
+          new ArcLayer({
+            id: 'arc-layer',
+            data: arcs,
+            getSourcePosition: d => d.source,
+            getTargetPosition: d => d.target,
+            getSourceColor: [0, 255, 255],
+            getTargetColor: [255, 100, 100],
+            getWidth: deckglSize / 20,
+            opacity: deckglOpacity
+          })
+        ];
+      }
+    }
+
+    function addDeckGLMarker(lng, lat, name) {
+      deckglMarkers.push({ lng, lat, name: name || 'Custom Marker' });
+      updateDeckGLLayers();
+    }
+
+    function updateDeckGLLayers() {
+      if (deckglInstance) {
+        deckglInstance.setProps({
+          layers: [
+            getBasemapLayer(),
+            ...getDeckGLDataLayers()
+          ]
+        });
+      }
+    }
+
+    window.resetDeckGL = () => {
+      if (deckglInstance) {
+        deckglInstance.setProps({
+          initialViewState: {
+            longitude: 0,
+            latitude: 20,
+            zoom: 0
+          }
+        });
+      }
+    };
+
+    window.clearDeckGLMarkers = () => {
+      deckglMarkers = [];
+      updateDeckGLLayers();
+    };
+
+    window.changeDeckGLLayer = (layerType) => {
+      deckglLayerType = layerType;
+      updateDeckGLLayers();
+    };
+
+    window.changeDeckGLSize = (value) => {
+      deckglSize = parseInt(value);
+      document.getElementById('deckgl-size-value').textContent = value;
+      updateDeckGLLayers();
+    };
+
+    window.changeDeckGLOpacity = (value) => {
+      deckglOpacity = parseFloat(value);
+      document.getElementById('deckgl-opacity-value').textContent = value;
+      updateDeckGLLayers();
+    };
+
+    window.changeDeckGLBasemap = (basemap) => {
+      deckglBasemap = basemap;
+      updateDeckGLLayers();
+    };
+
+    function cleanupDeckGL() {
+      if (deckglInstance) {
+        deckglInstance.finalize();
+        deckglInstance = null;
+        deckglMarkers = [];
+      }
+    }
+
     // ===== TAB SWITCHING =====
     let currentTab = 'cesium';
 
@@ -823,6 +1084,8 @@
           cleanupGlobeGL();
         } else if (currentTab === 'maplibre') {
           cleanupMapLibre();
+        } else if (currentTab === 'deckgl') {
+          cleanupDeckGL();
         }
         currentTab = tab;
       }
@@ -848,6 +1111,8 @@
         initGlobeGL();
       } else if (tab === 'maplibre') {
         initMapLibre();
+      } else if (tab === 'deckgl') {
+        initDeckGL();
       }
     };
 

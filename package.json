@@ -14,7 +14,11 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@deck.gl/core": "^9.2.6",
+    "@deck.gl/geo-layers": "^9.2.6",
+    "@deck.gl/layers": "^9.2.6",
     "cesium": "^1.138.0",
+    "deck.gl": "^9.2.6",
     "globe.gl": "^2.45.0",
     "maplibre-gl": "^5.17.0"
   }
