@@ -24,6 +24,16 @@ const server = Bun.serve({
   fetch: async (req) => {
     const url = new URL(req.url);
     const pathname = url.pathname !== "/" && url.pathname.endsWith("/") ? url.pathname.slice(0, -1) : url.pathname;
+
+    if (pathname === "/up") {
+      return new Response("OK", {
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Cache-Control": "no-store",
+        },
+      });
+    }
+
     const htmlFile = htmlRoutes.get(pathname);
 
     if (htmlFile) {
