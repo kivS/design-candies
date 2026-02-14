@@ -6,6 +6,7 @@ import soundEffects from "./sound-effects.html";
 
 const hostname = Bun.env.HOST ?? "0.0.0.0";
 const port = Number(Bun.env.PORT ?? 3000);
+const isDev = Bun.env.NODE_ENV !== "production";
 
 const server = Bun.serve({
   hostname,
@@ -23,10 +24,12 @@ const server = Bun.serve({
       },
     }),
   },
-  development: {
-    hmr: true,
-    console: true,
-  },
+  development: isDev
+    ? {
+        hmr: true,
+        console: true,
+      }
+    : undefined,
 });
 
 console.log(`Design Candies running at [${server.url}]`);

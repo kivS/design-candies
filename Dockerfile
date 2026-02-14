@@ -1,31 +1,23 @@
-FROM oven/bun:1-alpine AS builder
+FROM oven/bun:1-alpine
 
 WORKDIR /app
 
-COPY index.ts /app/
+COPY package.json bun.lock bunfig.toml tsconfig.json /app/
+RUN bun install --frozen-lockfile
+
+COPY index.ts style.css /app/
 COPY *.html /app/
-COPY style.css /app/
-COPY build.ts /app/
 
-RUN printf '{ "name": "design-candies-build", "private": true, "devDependencies": { "bun-plugin-tailwind": "^0.1.2", "tailwindcss": "^4.1.18" } }' > /app/package.json \
-    && bun install \
-    && bun run /app/build.ts
+RUN addgroup -S app \
+    && adduser -S -G app app \
+    && chown -R app:app /app
 
-FROM alpine:3.20
-
-WORKDIR /app
-
-RUN apk add --no-cache libstdc++ libgcc \
-    && addgroup -S app \
-    && adduser -S -G app app
-
-COPY --from=builder /app/design-candies /app/design-candies
-COPY --from=builder /app/*.html /app/
-COPY --from=builder /app/style.css /app/style.css
-
+ENV HOST=0.0.0.0
 ENV PORT=3000
+ENV NODE_ENV=production
+
 EXPOSE 3000
 
 USER app
 
-CMD ["/app/design-candies"]
+CMD ["bun", "run", "/app/index.ts"]
