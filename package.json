@@ -8,13 +8,12 @@
     "deploy": "kamal deploy"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "bun-plugin-tailwind": "^0.1.2",
+    "tailwindcss": "^4.1.18"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
-  "dependencies": {
-    "bun-plugin-tailwind": "^0.1.2",
-    "tailwindcss": "^4.1.18"
-  }
+  "dependencies": {}
 }
