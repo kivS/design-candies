@@ -8,20 +8,13 @@
     "deploy": "kamal deploy"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "bun-plugin-tailwind": "^0.1.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@deck.gl/core": "^9.2.6",
-    "@deck.gl/geo-layers": "^9.2.6",
-    "@deck.gl/layers": "^9.2.6",
-    "cesium": "^1.138.0",
-    "deck.gl": "^9.2.6",
-    "globe.gl": "^2.45.0",
-    "maplibre-gl": "^5.17.0",
+    "bun-plugin-tailwind": "^0.1.2",
     "tailwindcss": "^4.1.18"
   }
 }

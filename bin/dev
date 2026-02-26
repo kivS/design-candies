@@ -5,4 +5,4 @@
 
 PORT="${1:-3000}"
 
-PORT="$PORT" bun run --watch index.ts
+PORT="$PORT" bun run --hot index.ts
